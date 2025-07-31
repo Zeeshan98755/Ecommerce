@@ -1,0 +1,28 @@
+<div class="grid grid-cols-1 md:grid-cols-6 gap-4 items-center pb-2 my-2">
+    <!-- Product Image & Details -->
+    <div class="md:col-span-3 flex flex-col md:flex-row items-center w-full">
+        <img class="w-16 h-16 md:w-20 md:h-20 object-cover object-top rounded-lg" [src]="orderItem.image"
+            alt="Product Image">
+        <div class="mt-2 md:mt-0 md:ml-5 text-center md:text-left">
+            <p class="font-semibold text-sm md:text-base lg:text-lg">{{ orderItem.title }}</p>
+            <p class="text-gray-400 text-xs md:text-sm">Color:
+                <span class="font-bold text-xs md:text-sm uppercase tracking-wide shadow-md px-2 py-1 rounded-md border"
+                    [ngClass]="getColorClass(orderItem.color)">
+                    {{ orderItem.color }}
+                </span>
+            </p>
+            <p class="text-gray-400 text-xs md:text-sm">Quantity: {{ orderItem.quantity }}</p>
+        </div>
+    </div>
+
+    <!-- Price -->
+    <div class="md:col-span-1 text-center md:text-left">
+        <p class="font-semibold text-sm md:text-base lg:text-lg">₹{{ orderItem.disprice }}</p>
+    </div>
+
+    <!-- Delivery & Status -->
+    <div class="md:col-span-2 text-center md:text-left">
+        <p class="font-semibold text-sm md:text-base lg:text-lg">Expected Delivery On {{ order.createdAt | date }}</p>
+        <p class="text-xs md:text-sm">Status: {{ order.status }}</p>
+    </div>
+</div>

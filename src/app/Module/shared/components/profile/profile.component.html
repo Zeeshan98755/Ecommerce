@@ -1,0 +1,174 @@
+<div
+    class="min-h-screen bg-black bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 to-black flex items-center justify-center py-14 px-7">
+    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()"
+        class="glass-card w-full max-w-3xl bg-transparent p-8 rounded-2xl shadow-lg shadow-[#69f0ae]/10 border border-gray-800 hover:border-[#69f0ae] transition-all duration-500">
+
+        <div class="mb-10 text-center">
+            <h2 class="text-3xl font-bold text-[#69f0ae] inline-block relative">
+                My Profile
+                <span
+                    class="absolute bottom-0 left-0 w-full h-0.5 bg-[#69f0ae] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"></span>
+            </h2>
+            <p class="mt-2 text-gray-400">Update your personal information</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="text" placeholder=" " formControlName="firstName" class="peer form-input" />
+                        <label class="form-label">
+                            First Name
+                            <span *ngIf="f['firstName'].invalid || f['firstName'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-1">
+                            <p *ngIf="(submitted || f['firstName'].touched) && f['firstName'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="text" placeholder=" " formControlName="lastName" class="peer form-input" />
+                        <label class="form-label">
+                            Last Name
+                            <span *ngIf="f['lastName'].invalid || f['lastName'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-1">
+                            <p *ngIf="(submitted || f['lastName'].touched) && f['lastName'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="email" placeholder=" " formControlName="email" class="peer form-input" />
+                        <label class="form-label">
+                            Email
+                            <span *ngIf="f['email'].invalid || f['email'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-1">
+                            <p *ngIf="(submitted || f['email'].touched) && f['email'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                            <p *ngIf="(submitted || f['email'].touched) && f['email'].errors?.['email']"
+                                class="error-text">Enter a valid email</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="text" placeholder=" " formControlName="address" class="peer form-input" />
+                        <label class="form-label">
+                            Address
+                            <span *ngIf="f['address'].invalid || f['address'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-1">
+                            <p *ngIf="(submitted || f['address'].touched) && f['address'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="text" placeholder=" " formControlName="city" class="peer form-input" />
+                        <label class="form-label">
+                            City
+                            <span *ngIf="f['city'].invalid || f['city'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-1">
+                            <p *ngIf="(submitted || f['city'].touched) && f['city'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="text" placeholder=" " formControlName="zipCode" class="peer form-input" />
+                        <label class="form-label">
+                            Zip Code
+                            <span *ngIf="f['zipCode'].invalid || f['zipCode'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-1">
+                            <p *ngIf="(submitted || f['zipCode'].touched) && f['zipCode'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <div class="relative">
+                            <input [type]="showPassword ? 'text' : 'password'" placeholder=" "
+                                formControlName="password" class="peer form-input" />
+                            <label class="form-label">
+                                Password
+                                <span *ngIf="f['password'].invalid || f['password'].errors?.['required']"
+                                    class="text-red-500">*</span>
+                            </label>
+                            <button type="button" (click)="togglePasswordVisibility()"
+                                class="absolute right-3 top-6 transform -translate-y-0 text-gray-400 hover:text-[#69f0ae] transition-colors duration-300">
+                                <i [class]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
+                            </button>
+                        </div>
+                        <div class="mt-1">
+                            <p *ngIf="(submitted || f['password'].touched) && f['password'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                            <p *ngIf="(submitted || f['password'].touched) && f['password'].errors?.['minlength']"
+                                class="error-text">Min 4 characters</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="number" placeholder=" " formControlName="mobNumber" class="peer form-input" />
+                        <label class="form-label">
+                            Mobile Number
+                            <span *ngIf="f['mobNumber'].invalid || f['mobNumber'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-1">
+                            <p *ngIf="(submitted || f['mobNumber'].touched) && f['mobNumber'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <button type="submit" class="mt-10 btn-primary" [disabled]="profileForm.invalid">
+            <span class="relative z-10">Update Profile</span>
+        </button>
+    </form>
+</div>

@@ -1,1 +1,245 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background: #0b0b0b;
+    color: white;
+}
+
+.box {
+    box-shadow: #000000 0px 5px 15px;
+    padding: 15px;
+}
+
+.hideScrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #69F0AE;
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ant-drawer-header {
+    background: #111827 !important;
+
+    .ant-drawer-close {
+        color: white !important;
+    }
+
+    .ant-drawer-title {
+        color: white !important;
+    }
+}
+
+.ant-drawer-body {
+    background: #111827 !important;
+
+    .ant-form-item-label>label {
+        color: white !important;
+    }
+
+    .ant-form-item-control-input-content {
+        .ant-input {
+            background: transparent !important;
+            border: 1px solid #434343;
+            color: rgba(255, 255, 255, .85);
+        }
+    }
+
+    .ant-select {
+        .ant-select-selector {
+            position: relative;
+            background: transparent !important;
+            border: 1px solid #434343;
+            color: rgba(255, 255, 255, .85) !important;
+        }
+    }
+}
+
+.country-dropdown {
+    .iti__selected-country-primary {
+        padding: 0 15px;
+        border-right: 1px solid gray;
+        background-color: transparent !important;
+        border-radius: 8px 0 0 8px !important;
+        height: fit-content !important;
+        margin-bottom: -15px !important;
+    }
+
+    .iti.iti--allow-dropdown,
+    .iti__tel-input {
+        width: 100%;
+    }
+
+}
+
+.iti__search-input {
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    padding: 10px !important;
+    background-color: #111827 !important;
+    color: gray !important;
+    outline: none !important;
+    border: 1px solid #374151 !important;
+}
+
+.iti__country-list {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    background-color: #111827 !important;
+    color: white !important;
+
+}
+
+.iti__dial-code {
+    color: white !important;
+}
+
+.iti__country-list :hover {
+    background-color: darkgray !important;
+}
+
+@layer components {
+    .animate-spin-slow-reverse {
+        animation: spin 3s linear infinite reverse;
+    }
+
+    .dot-animation::after {
+        content: '...';
+        animation: dotty 1.5s infinite step-end;
+    }
+}
+
+@keyframes dotty {
+    0% {
+        content: '';
+    }
+
+    25% {
+        content: '.';
+    }
+
+    50% {
+        content: '..';
+    }
+
+    75% {
+        content: '...';
+    }
+
+    100% {
+        content: '';
+    }
+}
+
+.ant-input-affix-wrapper {
+    background-color: transparent !important;
+    width: 100%;
+    max-width: 60% !important;
+    border-radius: 999px;
+    border: 1px solid #3a3a3a;
+    box-shadow: 0 0 15px transparent;
+    transition: all 0.3s ease-in-out;
+    padding: 8px 12px 8px 12px !important;
+
+    &:hover {
+        border-color: #69f0ae !important;
+    }
+
+    &:focus-within {
+        border-color: #69f0ae;
+        box-shadow: 0 0 15px #69f0ae;
+    }
+}
+
+.ant-input {
+    background-color: transparent !important;
+    color: white !important;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+        color: #9ca3af;
+    }
+}
+
+.anticon {
+    color: #69f0ae !important;
+}
+
+@layer components {
+
+    // Admin Panel
+    .form-label {
+        @apply absolute left-3 top-6 text-gray-400 transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#69F0AE] peer-[&:not(:placeholder-shown)]:scale-75 peer-[&:not(:placeholder-shown)]:-translate-y-4 sm:text-sm;
+    }
+
+    .form-input {
+        @apply bg-transparent text-white border-0 border-b border-gray-700 focus:border-[#69F0AE] w-full outline-none pt-6 pb-2 px-3 rounded-t-lg transition-all duration-300 focus:ring-0 group-hover:border-[#69F0AE];
+    }
+
+    .form-select {
+        @apply bg-transparent text-white border-b border-gray-600 placeholder-gray-400 focus:border-[#69F0AE] w-full outline-none pt-5 pb-2 px-0 peer-focus:bg-transparent peer-placeholder-shown:bg-transparent focus:ring-0 focus:outline-none appearance-none;
+
+        border-left: none !important;
+        border-right: none !important;
+        border-top: none !important;
+    }
+
+    .error-text {
+        @apply text-red-500 text-sm mt-2;
+    }
+
+    .btn-primary {
+        @apply mt-6 w-full border border-[#69f0ae] bg-[#69f0ae] text-black font-bold p-3 rounded-lg shadow-lg hover:bg-transparent hover:text-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300;
+    }
+
+    .action-icon {
+        @apply hover:border hover:border-[#69f0ae] rounded-md text-[#69f0ae] font-bold px-2 py-1 shadow-lg hover:bg-transparent hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300;
+    }
+
+    // Pagination
+    .prevnext-button {
+        @apply px-3 py-2 border border-[#69F0AE] rounded-md text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-[#69F0AE] disabled:hover:shadow-none font-bold hover:bg-[#69F0AE] hover:text-[#69F0AE] hover:border hover:border-[#69f0ae] text-[#69f0ae] shadow-lg hover:bg-transparent hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300;
+    }
+
+    .number-count {
+        @apply px-3 py-2 text-sm font-medium rounded-lg hover:bg-[#69F0AE] hover:text-[#69F0AE] border border-[#69f0ae] text-[#69f0ae] shadow-lg hover:bg-transparent hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300;
+    }
+
+    // Pagination End
+
+    // Drawer
+    .drawer-form-label {
+        @apply absolute left-0 top-4 text-white text-xl transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE] peer-[&:not(:placeholder-shown)]:scale-75 peer-[&:not(:placeholder-shown)]:-translate-y-6;
+    }
+
+    .drawer-form-input {
+        @apply bg-transparent text-gray-400 border-b border-gray-600 placeholder-gray-400 focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0 border-x-0 border-t-0 peer-focus:bg-transparent peer-placeholder-shown:bg-transparent focus:ring-0 focus:outline-none;
+    }
+
+    // Drawer End
+
+    .glass-card {
+        @apply overflow-hidden border border-gray-600 rounded-xl bg-opacity-10 backdrop-blur-md shadow-lg transition-all duration-300 hover:border-[#69f0ae] hover:scale-105;
+    }
+
+    // Admin Panel End
+}

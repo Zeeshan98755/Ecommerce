@@ -1,0 +1,1 @@
+.productCard{@apply shadow-md transition-all duration-500}.productCard .textPart{transition:transform .3s ease-in-out}.productCard:hover{@apply shadow-[0_0_15px_#69F0AE]}.productCard:hover .textPart{transform:translateY(-1rem)}

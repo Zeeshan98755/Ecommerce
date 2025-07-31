@@ -1,0 +1,20 @@
+<div class="mt-6">
+    <div>
+        <app-main-carousel></app-main-carousel>
+    </div>
+
+    <div>
+        <!-- Product slider for men's brands -->
+        <app-product-slider title="Men's Jeans" [products]="menBrands" (brandClick)="loadProducts($event)">
+        </app-product-slider>
+        <app-product-slider title="Women's Gowns" [products]="womenGoun" (brandClick)="loadProducts($event)">
+        </app-product-slider>
+        <app-product-slider title="Lehenga Choli" [products]="lenghaCholi" (brandClick)="loadProducts($event)">
+        </app-product-slider>
+        <app-product-slider title="Men's Kurta" [products]="menKurta" (brandClick)="loadProducts($event)">
+        </app-product-slider>
+        <app-product-slider title="Shoes" [products]="mensShoe" (brandClick)="loadProducts($event)">
+        </app-product-slider>
+    </div>
+
+</div>

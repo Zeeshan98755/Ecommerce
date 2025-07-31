@@ -1,0 +1,15 @@
+.productCard {
+    @apply shadow-md transition-all duration-500;
+
+    .textPart {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    &:hover {
+        @apply shadow-[0_0_15px_#69F0AE];
+
+        .textPart {
+            transform: translateY(-1rem);
+        }
+    }
+}

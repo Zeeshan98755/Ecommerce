@@ -1,0 +1,123 @@
+<div class="p-5 lg:p-10 mt-10">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 px-4 py-6">
+        <div class="image-container relative w-full max-w-md mx-auto lg:mx-0" (mousemove)="zoomImage($event)"
+            (mouseleave)="resetZoom()">
+            <img #imageElement [src]="product.image"
+                class="product-image w-full h-auto object-contain rounded-lg shadow-lg">
+            <div #zoomLens class="zoom-lens absolute"></div>
+        </div>
+
+        <div class="col-span-1 space-y-6 md:space-y-8 mt-6 lg:mt-0">
+            <div>
+                <p class="text-xl md:text-2xl font-semibold text-white">{{ product.title }}</p>
+            </div>
+
+            <div>
+                <app-star-rating [ratingKey]="'product-main-rating-' + product.id"
+                    (totalRatingsChange)="updateTotalRatings($event)">
+                </app-star-rating>
+            </div>
+
+            <div class="flex items-center space-x-5 text-lg">
+                <p class="font-bold text-white">₹{{ product.disprice }}</p>
+                <p class="text-gray-500 line-through">₹{{ product.price }}</p>
+                <p class="text-green-400 font-semibold">{{ product.dispercent }}%</p>
+            </div>
+
+            <div>
+                <p class="text-lg text-white font-semibold flex items-center gap-2">
+                    Color:
+                    <span class="font-bold text-lg uppercase tracking-wide shadow-md px-3 py-1 rounded-md border"
+                        [ngClass]="getColorClass(product.color)">
+                        {{ product.color }}
+                    </span>
+                </p>
+            </div>
+
+            <button (click)="handleAddToCart()" class="w-full px-6 py-3 mt-8 border border-[#69f0ae] bg-[#69f0ae] text-black font-bold p-3 rounded-lg shadow-lg 
+                hover:bg-transparent hover:text-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+                Add To Cart
+            </button>
+
+            <div>
+                <p class="text-gray-400 leading-relaxed">{{ product.details }}</p>
+            </div>
+        </div>
+    </section>
+    <section class="pt-20 pb-10 px-5 lg:px-0">
+        <h1 class="font-semibold text-lg pb-4 text-white">Recent Review & Ratings</h1>
+        <div class="border border-[#1a1a1a] rounded-md p-5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
+                <div class="lg:col-span-7 space-y-5">
+                    <div *ngFor="let item of reviews">
+                        <app-product-review-card [product]="product" [productId]="product.id" [reviewId]="item.id"
+                            [review]="item">
+                        </app-product-review-card>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 mt-10 lg:mt-0">
+                    <div class="box p-6 rounded-lg shadow-lg">
+                        <h1 class="text-xl font-semibold pb-1 text-white">Product Ratings</h1>
+                        <div class="flex items-center space-x-3 pb-6">
+                            <app-star-rating [ratingKey]="'product-summary-rating-' + product.id"
+                                (totalRatingsChange)="updateTotalRatings($event)"
+                                (ratingDistributionChange)="updateRatingDistribution($event)">
+                            </app-star-rating>
+                            <p class="opacity-60">{{ totalRatings }} Ratings</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div *ngFor="let rating of [
+                                { label: 'Excellent', value: ratingDistribution.excellent, count: (ratingDistribution.excellent / 100) * totalRatings },
+                                { label: 'Very Good', value: ratingDistribution.veryGood, count: (ratingDistribution.veryGood / 100) * totalRatings },
+                                { label: 'Good', value: ratingDistribution.good, count: (ratingDistribution.good / 100) * totalRatings },
+                                { label: 'Average', value: ratingDistribution.average, count: (ratingDistribution.average / 100) * totalRatings },
+                                { label: 'Poor', value: ratingDistribution.poor, count: (ratingDistribution.poor / 100) * totalRatings }
+                            ]">
+                                <div class="grid grid-cols-12 items-center">
+                                    <div class="col-span-2 text-sm font-medium text-white">
+                                        <span>{{ rating.label }}</span>
+                                    </div>
+                                    <div class="col-span-8 px-3">
+                                        <mat-progress-bar mode="determinate" [value]="rating.value"
+                                            style="height: 4px; color: #69F0AE !important;">
+                                        </mat-progress-bar>
+                                    </div>
+                                    <span class="col-span-2 text-right text-sm opacity-50">{{ rating.count | number
+                                        }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-10">
+        <h1 class="text-white text-2xl md:text-4xl py-5">Related Products</h1>
+
+        <div class="relative w-full mx-auto">
+            <button (click)="prevSlide()" class="hidden lg:flex absolute w-10 h-10 left-2 top-1/2 transform -translate-y-1/2 hover:bg-[#69F0AE] text-lg p-2 rounded-full z-10 !justify-center !items-center border border-[#69f0ae] bg-[#69f0ae] text-black font-bold shadow-lg 
+                hover:bg-transparent hover:text-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="overflow-hidden">
+                <div class="flex transition-transform duration-500 ease-in-out"
+                    [ngStyle]="{'transform': 'translateX(' + (-currentIndex * 100) + '%)'}">
+                    <div *ngFor="let item of relatedProduct"
+                        class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex-shrink-0 p-2">
+                        <app-product-card [product]="item"></app-product-card>
+                    </div>
+                </div>
+            </div>
+
+            <button (click)="nextSlide()" class="hidden lg:flex absolute w-10 h-10 right-2 top-1/2 transform -translate-y-1/2 hover:bg-[#69F0AE] text-lg p-2 rounded-full z-10 !justify-center !items-center border border-[#69f0ae] bg-[#69f0ae] text-black font-bold shadow-lg 
+                hover:bg-transparent hover:text-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </section>
+</div>

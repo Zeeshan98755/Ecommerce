@@ -1,0 +1,12 @@
+@media (max-width: 768px) {
+  .category-container {
+    padding: 1rem;
+  }
+  table {
+    min-width: 100%;
+  }
+  .pagination {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}/*# sourceMappingURL=brand-table.component.css.map */

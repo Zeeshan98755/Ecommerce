@@ -1,0 +1,23 @@
+<div *ngIf="product" class="productCard w-full transition-all rounded-lg">
+    <div (click)="navigate()" class="h-[20rem] cursor-pointer">
+        <a [routerLink]="['/product_details', product.id]">
+            <img class="w-full h-full object-contain !rounded-t-lg" [src]="product.image" alt="">
+        </a>
+    </div>
+    <div class="textPart p-3 bg-[#0b0b0b]">
+        <div>
+            <p class="truncate text-white">{{product.title}}</p>
+            <p class="text-white font-semibold">{{product.color}}</p>
+        </div>
+        <div class="flex justify-between items-center">
+            <div class="flex flex-wrap space-x-2 items-center">
+                <p class="font-bold text-white">₹{{product.disprice}}</p>
+                <p class="text-gray-600 line-through">₹{{product.price}}</p>
+                <p class="text-[#69f0ae] font-semibold">{{product.dispercent}}%</p>
+            </div>
+            <div class="cursor-pointer">
+                <i class="fa-regular fa-heart fa-beat text-2xl text-[#69f0ae]"></i>
+            </div>
+        </div>
+    </div>
+</div>

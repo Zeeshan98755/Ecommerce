@@ -1,0 +1,65 @@
+<div class="p-3 bg-black min-h-screen text-white">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div
+            class="bg-gray-900 p-4 rounded-lg h-fit w-full shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+            <h2 class="text-lg font-semibold mb-4 text-white">RECENTLY ADDED PRODUCTS</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-800">
+                        <tr>
+                            <th class="px-4 py-2">Image</th>
+                            <th class="px-4 py-2">Title</th>
+                            <th class="px-4 py-2">Disc. Price</th>
+                            <th class="px-4 py-2">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-700" *ngFor="let product of products let last=last"
+                            [ngClass]="{'border-b-0': last}">
+                            <td class="px-4 py-2">
+                                <img [src]="product.image" class="w-10 h-10 rounded-full object-cover" />
+                            </td>
+                            <td class="px-4 py-2">{{ product.title }}</td>
+                            <td class="px-4 py-2">₹{{ product.disprice }}</td>
+                            <td class="px-4 py-2">₹{{ product.price }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div
+            class="bg-gray-900 p-4 rounded-lg h-fit w-full shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+            <h2 class="text-lg font-semibold mb-4 text-white">All CUSTOMERS</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-800">
+                        <tr>
+                            <th class="px-4 py-2">Id</th>
+                            <th class="px-4 py-2">Image</th>
+                            <th class="px-4 py-2">First Name</th>
+                            <th class="px-4 py-2">Last Name</th>
+                            <th class="px-4 py-2">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-700"
+                            *ngFor="let customer of customers; let i = index; let last=last"
+                            [ngClass]="{'border-b-0': last}">
+                            <td class="px-4 py-2">{{ i + 1 }}</td>
+                            <td class="px-4 py-2">
+                                <div class="w-10 h-10 flex items-center justify-center rounded-full text-white"
+                                    [ngClass]="customer.avatarColor">
+                                    {{ customer.initial }}
+                                </div>
+                            </td>
+                            <td class="px-4 py-2">{{ customer.firstName }}</td>
+                            <td class="px-4 py-2">{{ customer.lastName }}</td>
+                            <td class="px-4 py-2">{{ customer.email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

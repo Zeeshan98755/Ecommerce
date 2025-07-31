@@ -1,0 +1,187 @@
+<div class="min-h-screen bg-black flex items-center justify-center px-4 py-6">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()"
+        class="glass-card w-full max-w-5xl bg-gray-900/50 backdrop-blur-md p-5 rounded-lg shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+        <h2 class="text-2xl font-semibold text-[#69f0ae] text-center mb-6">
+            {{ editMode ? 'Edit Product' : 'Add New Product' }}
+        </h2>
+        <div *ngIf="editMode" class="w-full h-40 overflow-hidden flex items-center justify-center mb-6">
+            <img [src]="productForm.get('image')?.value" alt="Product Image"
+                class="max-w-full max-h-full object-contain" />
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="flex flex-col">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <select formControlName="menu" class="peer form-select" (change)="onMenuChange($event)">
+                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select a menu</option>
+                            <option *ngFor="let item of menu" [value]="item.id"
+                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                        </select>
+                        <label class="form-label">Select
+                            Menu</label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="flex flex-col">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <select formControlName="category" class="peer form-select" (change)="onCategoryChange($event)">
+                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select a category
+                            </option>
+                            <option *ngFor="let item of categories" [value]="item.id"
+                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                        </select>
+                        <label class="form-label">Select
+                            Category</label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="flex flex-col">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <select formControlName="subcategory" class="peer form-select">
+                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select a subcategory
+                            </option>
+                            <option *ngFor="let item of subcategories" [value]="item.id"
+                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                        </select>
+                        <label class="form-label">Select
+                            Sub Category</label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
+            <div class="flex flex-col">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <select formControlName="brand" class="peer form-select">
+                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select a brand</option>
+                            <option *ngFor="let item of brands" [value]="item.id"
+                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                        </select>
+                        <label class="form-label">Select
+                            Brand</label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="flex flex-col relative group" *ngIf="!editMode">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="text" placeholder="" formControlName="image" class="peer form-input" />
+                        <label class="form-label">
+                            Image URL
+                            <span *ngIf="f['image'].invalid || f['image'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+
+                        <p *ngIf="(submitted || f['image'].touched) && f['image'].errors?.['required']"
+                            class="error-text">
+                            This field is required
+                        </p>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="flex flex-col relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="text" placeholder="" formControlName="title" class="peer form-input" />
+                        <label class="form-label">Product
+                            Name
+                            <span *ngIf="f['title'].invalid || f['title'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <p *ngIf="(submitted || f['title'].touched) && f['title'].errors?.['required']"
+                            class="error-text">This field is required</p>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
+            <div class="flex flex-col">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <select formControlName="color" class="peer form-select">
+                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select Color</option>
+                            <option *ngFor="let color of colors" [value]="color"
+                                class="text-white bg-gray-800 hover:bg-gray-700">{{ color }}</option>
+                        </select>
+                        <label class="form-label">
+                            Color
+                            <span *ngIf="f['color'].invalid" class="text-red-500">*</span>
+                        </label>
+                        <p *ngIf="(submitted || f['color'].touched) && f['color'].errors?.['required']"
+                            class="error-text">
+                            This field is required
+                        </p>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="flex flex-col relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="number" placeholder="" formControlName="price" class="peer form-input" />
+                        <label class="form-label">Price
+                            <span *ngIf="f['price'].invalid || f['price'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <p *ngIf="(submitted || f['price'].touched) && f['price'].errors?.['required']"
+                            class="error-text">This field is required</p>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="flex flex-col relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="number" placeholder="" formControlName="disprice" class="peer form-input" />
+                        <label class="form-label">Discounted
+                            Price <span *ngIf="f['disprice'].invalid || f['disprice'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <p *ngIf="(submitted || f['disprice'].touched) && f['disprice'].errors?.['required']"
+                            class="error-text">This field is required</p>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
+            <div class="flex flex-col relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="number" placeholder="" formControlName="dispercent" class="peer form-input" />
+                        <label class="form-label">Discount
+                            %</label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="flex flex-col relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <textarea rows="3" placeholder="" formControlName="details" class="peer form-input">
+                        </textarea>
+                        <label class="form-label">Description
+                            <span *ngIf="f['details'].invalid || f['details'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <p *ngIf="(submitted || f['details'].touched) && f['details'].errors?.['required']"
+                            class="error-text">This field is required</p>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <button class="btn-primary">
+            {{ editMode ? 'Update Product' : 'Add Product' }}
+        </button>
+    </form>
+</div>

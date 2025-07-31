@@ -1,0 +1,72 @@
+<main class="mt-10">
+    <div class="py-10 lg:grid grid-cols-3 lg:px-16 relative">
+        <section class="lg:col-span-2 lg:px-5">
+            <div class="box p-5 space-y-3">
+                <ng-container *ngIf="cart.length > 0; else emptyCart">
+                    <div *ngFor="let product of cart; let i = index; let last = last">
+                        <app-cart-item [cartItem]="product" [index]="i"
+                            (cartUpdated)="cartService.loadCart()"></app-cart-item>
+                        <mat-divider *ngIf="!last"></mat-divider>
+                    </div>
+                </ng-container>
+                <ng-template #emptyCart>
+                    <div class="flex flex-col items-center justify-center text-gray-400 py-10">
+                        <svg class="w-28 h-28 !text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path
+                                d="M351.9 329.506H206.81l-3.072-12.56H368.16l26.63-116.019-217.23-26.04-9.952-58.09h-50.4v21.946h31.894l35.233 191.246a32.927 32.927 0 1 0 36.363 21.462h100.244a32.825 32.825 0 1 0 30.957-21.945zM181.427 197.45l186.51 22.358-17.258 75.195H198.917z"
+                                data-name="Shopping Cart" />
+                        </svg>
+                        <p class="text-lg">Your cart is empty</p>
+                        <p class="text-sm text-gray-500">Add items to continue shopping.</p>
+                        <a routerLink="/"
+                            class="mt-6 !px-6 !py-2 rounded-lg !bg-gradient-to-r !from-[#69F0AE] !via-emerald-400 !to-green-500 
+                            !text-gray-900 !font-semibold !text-sm !shadow-md hover:!shadow-lg hover:!scale-105 transition-all duration-300">
+                            Start Shopping
+                        </a>
+                    </div>
+                </ng-template>
+            </div>
+        </section>
+
+        <section class="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0">
+            <ng-container *ngIf="cart.length > 0">
+                <div class="box p-5 rounded-md">
+                    <p class="font-bold text-gray-500 pb-4">PRICE DETAILS</p>
+                    <mat-divider></mat-divider>
+                    <div class="space-y-3">
+                        <div class="flex justify-between pt-3">
+                            <span>Total Price</span>
+                            <span>₹{{ getTotalPrice() }}</span>
+                        </div>
+                        <div class="flex justify-between pt-3">
+                            <span>Discount</span>
+                            <span class="text-green-700">-₹{{ getTotalDiscount() }}</span>
+                        </div>
+                        <div class="flex justify-between pt-3">
+                            <span>Delivery Charges</span>
+                            <span class="text-green-600">Free</span>
+                        </div>
+                        <div class="flex justify-between font-semibold text-lg">
+                            <span>Total Amount</span>
+                            <span class="text-green-600">₹{{ getFinalAmount() }}</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 space-y-3">
+                        <button (click)="navigateToCheckout()" class="text-lg w-full border border-[#69F0AE] py-2 rounded-md 
+                        bg-gradient-to-r from-[#69F0AE] via-emerald-400 to-green-500 text-gray-900 font-semibold shadow-md
+                        hover:shadow-lg hover:scale-105 transition-all duration-300">
+                            CHECKOUT
+                        </button>
+
+                        <button routerLink="/" class="text-lg w-full border border-[#69F0AE] py-2 rounded-md 
+                            bg-gradient-to-r from-[#69F0AE] via-emerald-400 to-green-500 text-gray-900 font-semibold shadow-md
+                            hover:shadow-lg hover:scale-105 transition-all duration-300">
+                            CONTINUE SHOPPING
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </section>
+    </div>
+</main>

@@ -1,0 +1,38 @@
+<div class="py-10 md:py-16 lg:py-20 text-white px-5 md:px-10 lg:px-20">
+    <div *ngIf="isLoading" class="text-center">
+        <p>Loading order details...</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="text-center text-red-500">
+        <p>{{ errorMessage }}</p>
+    </div>
+
+    <div class="pt-5">
+        <button routerLink="/account/orders"
+            class="flex !items-center gap-2 px-4 py-2 rounded-full !bg-[#69f0ae] text-black bg-transparent backdrop-blur-md border border-[#69f0ae] !font-bold shadow-lg hover:!bg-transparent hover:text-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+            <span class="text-lg font-bold">←</span>
+            <span class="font-medium">Back</span>
+        </button>
+    </div>
+
+    <div *ngIf="order && !isLoading">
+        <div class="py-5">
+            <h2 class="text-center text-white text-lg md:text-xl lg:text-2xl font-semibold py-4">Order Status</h2>
+            <app-order-tracker [activeStep]="order.status" [steps]="steps"></app-order-tracker>
+        </div>
+
+        <div class="space-y-6 md:space-y-10 pt-6 md:pt-10">
+            <div class="box px-5 md:px-10 py-5">
+                <h1 class="text-lg md:text-xl font-semibold text-white">Shipping Address</h1>
+                <app-address-card [address]="order.address"></app-address-card>
+            </div>
+
+            <div class="space-y-6 md:space-y-10">
+                <div *ngFor="let orderItem of order.items let last=last">
+                    <app-order-card [orderItem]="orderItem" [order]="order"></app-order-card>
+                    <mat-divider *ngIf="!last"></mat-divider>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

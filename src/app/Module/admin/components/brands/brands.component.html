@@ -1,0 +1,51 @@
+<div class="min-h-screen bg-black flex items-center justify-center p-6">
+    <form [formGroup]="brandForm" (ngSubmit)="onSubmit()"
+        class="glass-card w-full max-w-3xl bg-gray-900/50 backdrop-blur-md p-6 sm:p-8 rounded-lg shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+        <h2 class="text-xl sm:text-2xl font-semibold text-[#69f0ae] text-center mb-6">
+            {{ editMode ? 'Edit Brand' : 'Add New Brand' }}
+        </h2>
+
+        <div class="grid grid-cols-1 gap-6">
+            <div class="flex flex-col">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <select formControlName="menu" class="peer form-select">
+                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select Menu</option>
+                            <option *ngFor="let item of menu" [value]="item.id"
+                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                        </select>
+                        <label class="form-label">Select
+                            Menu <span *ngIf="f['menu'].invalid || f['menu'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-2">
+                            <p *ngIf="(submitted || f['menu'].touched) && f['menu'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="flex flex-col relative group">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                        <input type="text" placeholder="" formControlName="name" class="peer form-input" />
+                        <label class="form-label">Brand
+                            Name
+                            <span *ngIf="f['name'].invalid || f['name'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-2">
+                            <p *ngIf="(submitted || f['name'].touched) && f['name'].errors?.['required']"
+                                class="error-text">This field is required</p>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <button class="btn-primary">
+            {{ editMode ? 'Update Brand' : 'Add Brand' }}
+        </button>
+    </form>
+</div>

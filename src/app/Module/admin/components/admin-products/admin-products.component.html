@@ -1,0 +1,239 @@
+<div class="p-6 bg-black min-h-screen text-white overflow-x-hidden">
+    <div
+        class="bg-gray-900 p-4 rounded-lg h-fit w-full shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+            <h2 class="text-lg font-semibold mb-4 uppercase text-white">RECENTLY ADDED PRODUCTS</h2>
+
+            <div class="relative w-full sm:max-w-md mb-4 flex gap-1 md:gap-0 justify-evenly">
+                <nz-input-group [nzSuffix]="suffixIconSearch" class="relative w-full max-w-md mb-4">
+                    <input type="text" nz-input [(ngModel)]="searchTerm" (input)="filterProducts()"
+                        placeholder="Search categories..." class="w-full bg-[#1e1e1e] border border-gray-600 text-white rounded-full px-4 py-2 
+                             focus:ring-[#69f0ae] focus:border-[#69f0ae] focus:ring-2 transition-all duration-300 
+                             placeholder-gray-400 shadow-lg focus:shadow-[0_0_15px_#69f0ae]" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <span nz-icon nzType="search" class="text-[#69f0ae]"></span>
+                </ng-template>
+
+                <div>
+                    <span *ngIf="searchTerm"
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#69f0ae] text-sm">
+                        {{ filteredCount }} found
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="max-w-full overflow-x-hidden">
+            <table class="w-full text-sm text-left min-w-[600px]">
+                <thead class="bg-gray-800">
+                    <tr>
+                        <th class="px-4 py-2">ID</th>
+                        <th class="px-4 py-2">Image</th>
+                        <th class="px-4 py-2">Title</th>
+                        <th class="px-4 py-2">Disc. Price</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-700"
+                        *ngFor="let product of paginatedProducts; let i =index let last=last"
+                        [ngClass]="{'border-b-0': last}">
+                        <td class="px-4 py-2">{{ startIndex + i + 1 }}</td>
+                        <td class="px-4 py-2 relative group">
+                            <img [src]="product.image" alt="Product Image"
+                                class="w-10 h-10 rounded-full object-cover transition-transform duration-300 hover:scale-110 cursor-pointer" />
+
+                            <div
+                                class="absolute !-top-5 !-right-10 translate-x-12 -translate-y-4 w-36 h-36 border-2 border-gray-300 rounded-full bg-white p-1 shadow-2xl 
+                                opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-50">
+                                <img [src]="product.image" alt="Large Product Preview"
+                                    class="w-full h-full object-contain rounded-full" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-2">{{ product.title }}</td>
+                        <td class="px-4 py-2">₹{{ product.disprice }}</td>
+                        <td class="px-4 py-2">₹{{ product.price }}</td>
+                        <td class="px-4 py-2 !align-baseline flex gap-1">
+                            <button (click)="deleteproduct(product.id)" class="action-icon">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            <button (click)="editproduct(product)" class="action-icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button nz-button nzType="primary" (click)="open(product)" class="action-icon">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="flex justify-center w-full overflow-x-auto">
+            <nav aria-label="Pagination" class="w-full">
+                <ul class="inline-flex items-center space-x-2 mx-auto">
+                    <li>
+                        <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+                            class="prevnext-button">
+                            <i *ngIf="currentPage !== 1" class="fa fa-chevron-left"></i>
+                            <span *ngIf="currentPage === 1">Previous</span>
+                        </button>
+                    </li>
+
+                    <ng-container *ngFor="let page of getPageRange(); let i = index">
+                        <li>
+                            <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                [class.text-black]="currentPage === page" [class.text-[#69F0AE]]="currentPage !== page"
+                                [class.border]="'1px solid #69F0AE'" class="number-count">
+                                {{ page }}
+                            </button>
+                        </li>
+                    </ng-container>
+
+                    <li>
+                        <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+                            class="prevnext-button">
+                            <i *ngIf="currentPage !== totalPages" class="fa fa-chevron-right"></i>
+                            <span *ngIf="currentPage === totalPages">Next</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzMaskClosable]="false" [nzWidth]="isMobile ? '100%' : '720px'"
+    [nzVisible]="visible" nzTitle="Products Details" (nzOnClose)="close()">
+
+    <form nz-form *nzDrawerContent [formGroup]="ProductViewForm">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <nz-form-item>
+                    <nz-form-control>
+                        <div class="w-full h-40 overflow-hidden flex items-center justify-center">
+                            <img [src]="ProductViewForm.get('image')?.value" alt="Product Image"
+                                class="max-w-full max-h-full object-contain" />
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div>
+                <nz-form-item>
+                    <nz-form-label>Menu</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="menu" nzDisabled>
+                            <nz-option *ngFor="let item of menu" [nzValue]="item.id" [nzLabel]="item.name">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div>
+                <nz-form-item>
+                    <nz-form-label>Category</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="category" nzDisabled>
+                            <nz-option *ngFor="let item of categories" [nzValue]="item.id" [nzLabel]="item.name">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <nz-form-item>
+                    <nz-form-label>Sub Category</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="subcategory" nzDisabled>
+                            <nz-option *ngFor="let item of subcategories" [nzValue]="item.id" [nzLabel]="item.name">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div>
+                <nz-form-item>
+                    <nz-form-label>Brand</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="brand" nzDisabled>
+                            <nz-option *ngFor="let item of brands" [nzValue]="item.id" [nzLabel]="item.name">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <nz-form-item>
+                    <nz-form-control>
+                        <input formControlName="title" class="peer drawer-form-input" />
+                        <label class="drawer-form-label">Product
+                            Title
+                        </label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div>
+                <nz-form-item>
+                    <nz-form-control>
+                        <input formControlName="color" class="peer drawer-form-input" />
+                        <label class="drawer-form-label">Color
+                        </label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <nz-form-item>
+                    <nz-form-control>
+                        <input formControlName="price" class="peer drawer-form-input" />
+                        <label class="drawer-form-label">Product
+                            Price
+                        </label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div>
+                <nz-form-item>
+                    <nz-form-control>
+                        <input formControlName="disprice" class="peer drawer-form-input" />
+                        <label class="drawer-form-label">Disc.
+                            Price
+                        </label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="grid grid-cols-1">
+            <div>
+                <nz-form-item>
+                    <nz-form-control>
+                        <input formControlName="dispercent" class="peer drawer-form-input" />
+                        <label class="drawer-form-label">Disc.
+                            Percentage
+                        </label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="grid grid-cols-1">
+            <div>
+                <nz-form-item>
+                    <nz-form-control>
+                        <input formControlName="details" class="peer drawer-form-input" />
+                        <label class="drawer-form-label">Description
+                        </label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</nz-drawer>

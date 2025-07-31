@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/app/Module/admin/components/orders-table/orders-table.component.scss","orders-table.component.css"],"names":[],"mappings":"AAAA;EACI;IACI,aAAA;ECCN;EDEE;IACI,eAAA;ECAN;EDGE;IACI,sBAAA;IACA,WAAA;ECDN;AACF","file":"orders-table.component.css"}

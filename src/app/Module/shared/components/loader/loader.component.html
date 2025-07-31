@@ -1,0 +1,22 @@
+<div *ngIf="isLoading$ | async"
+    class="fixed inset-0 flex items-center justify-center bg-black/90 backdrop-blur-sm z-[1000]">
+
+    <div class="relative flex flex-col items-center justify-center space-y-4">
+        <div class="relative w-24 h-24">
+            <div class="absolute inset-0 border-4 border-transparent rounded-full 
+                        border-t-primary border-r-secondary border-b-primary border-l-secondary 
+                        animate-spin-slow"></div>
+
+            <div class="absolute inset-4 border-4 border-transparent rounded-full 
+                        border-t-secondary border-r-primary border-b-secondary border-l-primary 
+                        animate-spin-slow-reverse"></div>
+
+            <div class="absolute inset-8 bg-gradient-to-br from-primary to-secondary 
+                        rounded-full animate-pulse-slow shadow-lg shadow-primary/50"></div>
+        </div>
+
+        <p class="text-primary font-medium text-sm tracking-wider animate-pulse">
+            LOADING<span class="dot-animation">...</span>
+        </p>
+    </div>
+</div>

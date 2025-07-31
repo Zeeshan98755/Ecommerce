@@ -1,0 +1,10 @@
+<div
+    class="box hover:scale-105 cursor-pointer flex flex-col items-center rounded-lg overflow-hidden w-[15rem] shadow-sm mx-3 h-full hover:shadow-[0_0_15px_#69F0AE] transition-all duration-500">
+    <div class="h-[13rem] w-[10rem]">
+        <img class="object-cover object-top w-full h-full" [src]="product.image" alt="">
+    </div>
+    <div class="p-4 flex-1 flex flex-col w-full">
+        <h3 class="font-semibold text-gray-600 text-sm whitespace-normal break-words">{{ product.name }}</h3>
+        <p class="mt-2 text-gray-500 whitespace-normal break-words">{{ product.title }}</p>
+    </div>
+</div>

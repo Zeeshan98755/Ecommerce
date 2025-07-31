@@ -1,0 +1,68 @@
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 p-5">
+    <div
+        class="bg-gradient-to-r from-[#69F0AE] to-[#1C1C1C] text-white p-8 rounded-lg shadow-lg w-full sm:w-96 relative">
+        <!-- Close Button -->
+        <button (click)="closeModal()"
+            class="absolute top-4 right-4 text-white hover:text-gray-300 transition-all duration-200 ease-in-out">
+            ✖
+        </button>
+
+        <h2 class="text-2xl font-semibold text-white mb-6 text-center uppercase">Login</h2>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="relative mb-8">
+                <input type="email" formControlName="email"
+                    class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                    placeholder="Email">
+                <label
+                    class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                    Email
+                    <span *ngIf="f['email'].invalid || f['email'].errors?.['required']" class="text-red-500">*</span>
+                </label>
+                <div class="mt-2">
+                    <p *ngIf="(submitted || f['email'].touched) && f['email'].errors?.['required']"
+                        class="text-red-500 text-sm">This field is required</p>
+                    <p *ngIf="(submitted || f['email'].touched) && f['email'].errors?.['email']"
+                        class="text-red-500 text-sm">Enter a valid email</p>
+                </div>
+            </div>
+
+            <div class="relative mb-6 min-h-[72px]">
+                <div class="relative">
+                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        placeholder="Password" />
+                    <label
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        Password
+                        <span *ngIf="f['password'].invalid || f['password'].errors?.['required']"
+                            class="text-red-500">*</span>
+                    </label>
+
+                    <!-- Toggle Password Button -->
+                    <button type="button" (click)="togglePasswordVisibility()"
+                        class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white peer-focus:text-[#69F0AE] focus:outline-none">
+                        <i [class]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
+                    </button>
+                </div>
+
+                <div class="mt-2">
+                    <p *ngIf="(submitted || f['password'].touched) && f['password'].errors?.['required']"
+                        class="text-red-500 text-sm">This field is required</p>
+                    <p *ngIf="(submitted || f['password'].touched) && f['password'].errors?.['minlength']"
+                        class="text-red-500 text-sm">Min 4 characters</p>
+                </div>
+            </div>
+
+            <button type="submit"
+                class="w-full py-3 px-10 border border-[#69F0AE] text-[#69F0AE] rounded-md text-lg hover:bg-[#69F0AE] hover:text-black transition-all duration-200 ease-in-out">
+                Login
+            </button>
+        </form>
+
+        <p class="text-sm text-white mt-4 text-center">
+            Don't have an account?
+            <button class="text-[#69F0AE] hover:underline uppercase" (click)="openSignupModal()">Register</button>
+        </p>
+    </div>
+</div>
