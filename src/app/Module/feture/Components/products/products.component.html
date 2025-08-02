@@ -28,7 +28,14 @@
                 <div class="hidden lg:block">
                     <div class="flex items-center justify-between pb-4 border-b">
                         <p class="text-lg font-semibold">Filters</p>
-                        <mat-icon>filter_list</mat-icon>
+                        <div class="flex items-center space-x-4">
+                            <button *ngIf="showTopClearButton" (click)="clearFilters()"
+                                class="text-[#69f0ae] hover:text-red-500 transition duration-300"
+                                aria-label="Clear Filters">
+                                <i class="fas fa-rotate-left text-lg"></i>
+                            </button>
+                            <mat-icon>filter_list</mat-icon>
+                        </div>
                     </div>
                     <form>
                         <div *ngFor="let item of filtersData">
@@ -37,8 +44,9 @@
                                 <div class="pt-4">
                                     <div *ngFor="let option of item.options" class="flex items-center space-x-2">
                                         <mat-checkbox [name]="item.id" [value]="option.value"
-                                            (click)="handleMultipleSelectFilter(option.value, item.id)">
-                                            <span class="text-sm text-gray-500">{{option.label}}</span>
+                                            [(ngModel)]="option.selected"
+                                            (change)="handleMultipleSelectFilter(option.value, item.id)">
+                                            <span class="text-sm text-gray-500">{{ option.label }}</span>
                                         </mat-checkbox>
                                     </div>
                                 </div>
@@ -52,8 +60,9 @@
                                 <div class="pt-4">
                                     <div *ngFor="let option of item.options" class="flex items-center space-x-2">
                                         <mat-radio-button [name]="item.id" [value]="option.value"
-                                            (click)="handleSingleSelectFilter(option.value, item.id)">
-                                            <span class="text-sm text-gray-500">{{option.label}}</span>
+                                            [checked]="item.selected === option.value"
+                                            (change)="handleSingleSelectFilter(option.value, item.id)">
+                                            <span class="text-sm text-gray-500">{{ option.label }}</span>
                                         </mat-radio-button>
                                     </div>
                                 </div>

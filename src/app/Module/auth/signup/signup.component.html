@@ -1,167 +1,174 @@
-<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm mt-14 z-50 p-5">
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 p-5">
     <div
-        class="bg-gradient-to-r from-[#69F0AE] to-[#1C1C1C] text-white p-8 rounded-lg shadow-xl w-full max-w-4xl relative max-h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-[#69F0AE] scrollbar-track-transparent transition-transform transform">
-        <!-- Close Button -->
+        class="relative bg-gradient-to-r from-[#69F0AE] to-[#1C1C1C] text-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-hidden">
+
         <button (click)="closeModal()"
-            class="absolute top-4 right-4 text-white hover:text-gray-300 transition-all duration-200 ease-in-out">
+            class="absolute top-4 right-4 text-white hover:text-gray-300 transition-all duration-200 ease-in-out text-2xl z-10">
             ✖
         </button>
 
-        <h2 class="text-3xl font-semibold text-center uppercase mb-6">Create Account</h2>
+        <div
+            class="p-8 overflow-y-auto max-h-[calc(100vh-3rem)] scrollbar-thin scrollbar-thumb-[#69F0AE] scrollbar-track-transparent">
 
-        <form [formGroup]="RegisterForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="relative mb-6">
-                <input type="text" formControlName="firstName"
-                    class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
-                    placeholder="First Name">
-                <label
-                    class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
-                    First Name
-                    <span *ngIf="f['firstName'].errors?.['required'] && !f['firstName'].value"
-                        class="text-red-500">*</span>
-                </label>
-                <div class="mt-2">
-                    <p *ngIf="(submitted || f['firstName'].touched) && f['firstName'].errors?.['required']"
-                        class="text-red-500 text-sm">This field is required</p>
-                </div>
-            </div>
+            <h2 class="text-3xl font-semibold text-center uppercase mb-6">Create Account</h2>
 
-            <div class="relative mb-6">
-                <input type="text" formControlName="lastName"
-                    class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
-                    placeholder="Last Name">
-                <label
-                    class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
-                    Last Name
-                    <span *ngIf="f['lastName'].errors?.['required'] && !f['lastName'].value"
-                        class="text-red-500">*</span>
-                </label>
-                <div class="mt-2">
-                    <p *ngIf="(submitted || f['lastName'].touched) && f['lastName'].errors?.['required']"
-                        class="text-red-500 text-sm">This field is required</p>
-                </div>
-            </div>
-
-            <div class="relative mb-6">
-                <input type="email" formControlName="email"
-                    class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
-                    placeholder="Email">
-                <label
-                    class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
-                    Email
-                    <span *ngIf="f['email'].invalid || f['email'].errors?.['required']" class="text-red-500">*</span>
-                </label>
-                <div class="mt-2">
-                    <p *ngIf="(submitted || f['email'].touched) && f['email'].errors?.['required']"
-                        class="text-red-500 text-sm">This field is required</p>
-                    <p *ngIf="(submitted || f['email'].touched) && f['email'].errors?.['email']"
-                        class="text-red-500 text-sm">Enter a valid email</p>
-                    <p *ngIf="RegisterForm.controls['email'].errors?.['emailExists']" class="text-red-500 text-sm">
-                        Email already exists
-                    </p>
-                </div>
-            </div>
-
-            <div class="relative mb-6">
-                <input type="text" formControlName="zipCode"
-                    class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
-                    placeholder="Zip Code">
-                <label
-                    class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
-                    Zip Code <span *ngIf="f['zipCode'].errors?.['required'] && !f['zipCode'].value"
-                        class="text-red-500">*</span>
-                </label>
-                <div class="mt-2">
-                    <p *ngIf="(submitted || f['zipCode'].touched) && f['zipCode'].errors?.['required']"
-                        class="text-red-500 text-sm">This field is required</p>
-                </div>
-            </div>
-
-            <div class="relative mb-6">
-                <input type="text" formControlName="address"
-                    class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
-                    placeholder="Address">
-                <label
-                    class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
-                    Address <span *ngIf="f['address'].errors?.['required'] && !f['address'].value"
-                        class="text-red-500">*</span>
-                </label>
-                <div class="mt-2">
-                    <p *ngIf="(submitted || f['address'].touched) && f['address'].errors?.['required']"
-                        class="text-red-500 text-sm">This field is required</p>
-                </div>
-            </div>
-
-            <div class="relative mb-6">
-                <input type="text" formControlName="city"
-                    class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
-                    placeholder="City">
-                <label
-                    class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
-                    City <span *ngIf="f['city'].errors?.['required'] && !f['city'].value" class="text-red-500">*</span>
-                </label>
-                <div class="mt-2">
-                    <p *ngIf="(submitted || f['city'].touched) && f['city'].errors?.['required']"
-                        class="text-red-500 text-sm">This field is required</p>
-                </div>
-            </div>
-
-            <div class="relative mb-6">
-                <input type="number" formControlName="mobNumber"
-                    class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
-                    placeholder="Mobile Number">
-                <label
-                    class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
-                    Mobile Number <span *ngIf="f['mobNumber'].errors?.['required'] && !f['mobNumber'].value"
-                        class="text-red-500">*</span>
-                </label>
-                <div class="mt-2">
-                    <p *ngIf="(submitted || f['mobNumber'].touched) && f['mobNumber'].errors?.['required']"
-                        class="text-red-500 text-sm mt-2">This field is required</p>
-                    <p *ngIf="RegisterForm.controls['mobNumber'].errors?.['mobileExists']" class="text-red-500 text-sm">
-                        Mobile number already exists
-                    </p>
-                </div>
-            </div>
-
-            <div class="relative mb-6 min-h-[72px]">
-                <div class="relative">
-                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+            <form [formGroup]="RegisterForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="relative mb-6">
+                    <input type="text" formControlName="firstName"
                         class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
-                        placeholder="Password" />
+                        placeholder="First Name">
                     <label
                         class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
-                        Password
-                        <span *ngIf="f['password'].invalid || f['password'].errors?.['required']"
+                        First Name
+                        <span *ngIf="f['firstName'].errors?.['required'] && !f['firstName'].value"
                             class="text-red-500">*</span>
                     </label>
+                    <div class="mt-2">
+                        <p *ngIf="(submitted || f['firstName'].touched) && f['firstName'].errors?.['required']"
+                            class="text-red-500 text-sm">This field is required</p>
+                    </div>
+                </div>
 
-                    <!-- Toggle Password Button -->
-                    <button type="button" (click)="togglePasswordVisibility()"
-                        class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white peer-focus:text-[#69F0AE] focus:outline-none">
-                        <i [class]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
+                <div class="relative mb-6">
+                    <input type="text" formControlName="lastName"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        placeholder="Last Name">
+                    <label
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        Last Name
+                        <span *ngIf="f['lastName'].errors?.['required'] && !f['lastName'].value"
+                            class="text-red-500">*</span>
+                    </label>
+                    <div class="mt-2">
+                        <p *ngIf="(submitted || f['lastName'].touched) && f['lastName'].errors?.['required']"
+                            class="text-red-500 text-sm">This field is required</p>
+                    </div>
+                </div>
+
+                <div class="relative mb-6">
+                    <input type="email" formControlName="email"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        placeholder="Email">
+                    <label
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        Email
+                        <span *ngIf="f['email'].invalid || f['email'].errors?.['required']"
+                            class="text-red-500">*</span>
+                    </label>
+                    <div class="mt-2">
+                        <p *ngIf="(submitted || f['email'].touched) && f['email'].errors?.['required']"
+                            class="text-red-500 text-sm">This field is required</p>
+                        <p *ngIf="(submitted || f['email'].touched) && f['email'].errors?.['email']"
+                            class="text-red-500 text-sm">Enter a valid email</p>
+                        <p *ngIf="RegisterForm.controls['email'].errors?.['emailExists']" class="text-red-500 text-sm">
+                            Email already exists
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative mb-6">
+                    <input type="text" formControlName="zipCode"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        placeholder="Zip Code">
+                    <label
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        Zip Code <span *ngIf="f['zipCode'].errors?.['required'] && !f['zipCode'].value"
+                            class="text-red-500">*</span>
+                    </label>
+                    <div class="mt-2">
+                        <p *ngIf="(submitted || f['zipCode'].touched) && f['zipCode'].errors?.['required']"
+                            class="text-red-500 text-sm">This field is required</p>
+                    </div>
+                </div>
+
+                <div class="relative mb-6">
+                    <input type="text" formControlName="address"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        placeholder="Address">
+                    <label
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        Address <span *ngIf="f['address'].errors?.['required'] && !f['address'].value"
+                            class="text-red-500">*</span>
+                    </label>
+                    <div class="mt-2">
+                        <p *ngIf="(submitted || f['address'].touched) && f['address'].errors?.['required']"
+                            class="text-red-500 text-sm">This field is required</p>
+                    </div>
+                </div>
+
+                <div class="relative mb-6">
+                    <input type="text" formControlName="city"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        placeholder="City">
+                    <label
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        City <span *ngIf="f['city'].errors?.['required'] && !f['city'].value"
+                            class="text-red-500">*</span>
+                    </label>
+                    <div class="mt-2">
+                        <p *ngIf="(submitted || f['city'].touched) && f['city'].errors?.['required']"
+                            class="text-red-500 text-sm">This field is required</p>
+                    </div>
+                </div>
+
+                <div class="relative mb-6">
+                    <input type="number" formControlName="mobNumber"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        placeholder="Mobile Number">
+                    <label
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        Mobile Number <span *ngIf="f['mobNumber'].errors?.['required'] && !f['mobNumber'].value"
+                            class="text-red-500">*</span>
+                    </label>
+                    <div class="mt-2">
+                        <p *ngIf="(submitted || f['mobNumber'].touched) && f['mobNumber'].errors?.['required']"
+                            class="text-red-500 text-sm mt-2">This field is required</p>
+                        <p *ngIf="RegisterForm.controls['mobNumber'].errors?.['mobileExists']"
+                            class="text-red-500 text-sm">
+                            Mobile number already exists
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative mb-6 min-h-[72px]">
+                    <div class="relative">
+                        <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                            class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                            placeholder="Password" />
+                        <label
+                            class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                            Password
+                            <span *ngIf="f['password'].invalid || f['password'].errors?.['required']"
+                                class="text-red-500">*</span>
+                        </label>
+
+                        <!-- Toggle Password Button -->
+                        <button type="button" (click)="togglePasswordVisibility()"
+                            class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white peer-focus:text-[#69F0AE] focus:outline-none">
+                            <i [class]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
+                        </button>
+                    </div>
+
+                    <div class="mt-2">
+                        <p *ngIf="(submitted || f['password'].touched) && f['password'].errors?.['required']"
+                            class="text-red-500 text-sm">This field is required</p>
+                        <p *ngIf="(submitted || f['password'].touched) && f['password'].errors?.['minlength']"
+                            class="text-red-500 text-sm">Min 4 characters</p>
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:col-span-2">
+                    <button type="submit"
+                        class="w-full py-3 px-10 border border-[#69F0AE] text-[#69F0AE] rounded-md text-lg hover:bg-[#69F0AE] hover:text-black transition-all duration-200 ease-in-out">
+                        Register
                     </button>
                 </div>
+            </form>
 
-                <div class="mt-2">
-                    <p *ngIf="(submitted || f['password'].touched) && f['password'].errors?.['required']"
-                        class="text-red-500 text-sm">This field is required</p>
-                    <p *ngIf="(submitted || f['password'].touched) && f['password'].errors?.['minlength']"
-                        class="text-red-500 text-sm">Min 4 characters</p>
-                </div>
-            </div>
-
-            <div class="col-span-1 md:col-span-2">
-                <button type="submit"
-                    class="w-full py-3 px-10 border border-[#69F0AE] text-[#69F0AE] rounded-md text-lg hover:bg-[#69F0AE] hover:text-black transition-all duration-200 ease-in-out">
-                    Register
-                </button>
-            </div>
-        </form>
-
-        <p class="text-sm text-white mt-6 text-center">
-            Already have an account?
-            <button class="text-[#69F0AE] hover:underline uppercase" (click)="openSigninModal()">Login</button>
-        </p>
+            <p class="text-sm text-white mt-6 text-center">
+                Already have an account?
+                <button class="text-[#69F0AE] hover:underline uppercase" (click)="openSigninModal()">Login</button>
+            </p>
+        </div>
     </div>
 </div>

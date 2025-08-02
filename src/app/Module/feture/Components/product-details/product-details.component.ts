@@ -123,13 +123,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
           item.brandId === brandId &&
           item.id !== productId
         );
-
-        console.log("Menu ID:", menuId);
-        console.log("Category ID:", categoryId);
-        console.log("SubCategory ID:", subcategoryId);
-        console.log("Brand ID:", brandId);
-        console.log("Excluded Product ID:", productId);
-        console.log("Filtered Related Products:", this.relatedProduct);
       },
       (error) => {
         console.error("Error fetching related products:", error);

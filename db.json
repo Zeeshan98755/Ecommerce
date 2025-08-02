@@ -23,18 +23,6 @@
       "mobNumber": 3458935672,
       "role": "customer",
       "id": "9b4c"
-    },
-    {
-      "id": "e522",
-      "firstName": "Haider",
-      "lastName": "Ali",
-      "email": "ali123@gmail.com",
-      "password": "1133",
-      "mobNumber": 31265897566,
-      "address": "Lahore",
-      "city": "Lahore",
-      "zipCode": "1561",
-      "role": "customer"
     }
   ],
   "menu": [

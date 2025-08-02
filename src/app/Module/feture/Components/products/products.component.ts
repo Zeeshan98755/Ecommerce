@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { filters, singleFilter } from './FilterData';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../../State/Product/product.service';
-import { AdminService } from '../../../admin/Admin/admin.service';
 
 @Component({
   selector: 'app-products',
@@ -21,23 +20,54 @@ export class ProductsComponent implements OnInit {
   brandId!: string;
   isLoading: boolean = false;
   itemsPerPage!: number;
+  showTopClearButton: boolean = true;
 
   constructor(
     private activateRoute: ActivatedRoute,
     private route: Router,
-    private prosrc: ProductService  ) { }
+    private prosrc: ProductService) { }
 
   ngOnInit(): void {
-    this.filtersData = filters;
-    this.singlefiltersData = singleFilter;
+    this.filtersData = filters.map(item => ({
+      ...item,
+      options: item.options.map(option => ({
+        ...option,
+        selected: false
+      }))
+    }));
 
-    this.activateRoute.params.subscribe((params: { [x: string]: string; }) => {
+    this.singlefiltersData = singleFilter.map(item => ({
+      ...item,
+      selected: null,
+      options: item.options.map(option => ({
+        ...option
+      }))
+    }));
+
+    this.activateRoute.params.subscribe((params: { [x: string]: string }) => {
       this.brandId = params['brandId'];
       this.loadProducts();
     });
 
     this.activateRoute.queryParams.subscribe((queryParams) => {
+      this.updateFilterSelections(queryParams); // set selected = true
       this.loadProducts();
+    });
+  }
+
+  updateFilterSelections(queryParams: any) {
+    // Handle checkbox filters
+    this.filtersData.forEach((item: { id: string | number; options: any[]; }) => {
+      const selectedValues = queryParams[item.id]?.split(',') || [];
+      item.options.forEach((option: { selected: any; value: any; }) => {
+        option.selected = selectedValues.includes(option.value);
+      });
+    });
+
+    // Handle radio filters
+    this.singlefiltersData.forEach((item: { id: string | number; selected: any; }) => {
+      const selectedValue = queryParams[item.id] || null;
+      item.selected = selectedValue;
     });
   }
 
@@ -65,39 +95,41 @@ export class ProductsComponent implements OnInit {
     this.prosrc.getProducts('products').subscribe(
       (data) => {
         const uniqueProductsMap = new Map();
-    
+
         data.forEach((product) => {
           const key = `${product.image}`;
           if (!uniqueProductsMap.has(key)) {
             uniqueProductsMap.set(key, product);
           }
         });
-    
+
         this.products = Array.from(uniqueProductsMap.values()).filter((product) => {
           const productColors = Array.isArray(product.color) ? product.color : [product.color];
-    
+
           return (
-            (!subcategoryId || product.subcategoryId === subcategoryId) && 
-            (!brandId || product.brandId === brandId) && 
+            (!subcategoryId || product.subcategoryId === subcategoryId) &&
+            (!brandId || product.brandId === brandId) &&
             product.disprice >= minPrice &&
             product.disprice <= maxPrice &&
             product.dispercent >= minDiscount &&
             (color ? color.split(',').some((c: any) => productColors.includes(c)) : true)
           );
         });
-    
+
+        this.showTopClearButton = this.products.length > 0;
+
         if (sort === 'price_high') {
           this.products.sort((a, b) => b.disprice - a.disprice);
         } else if (sort === 'price_low') {
           this.products.sort((a, b) => a.disprice - b.disprice);
         }
-    
+
         this.totalPages = Math.ceil(this.products.length / this.pageSize);
-    
+
         if (this.currentPage > this.totalPages) {
           this.currentPage = 1;
         }
-    
+
         this.updatePaginatedMenus();
       },
       (error) => {
@@ -141,7 +173,27 @@ export class ProductsComponent implements OnInit {
   }
 
   clearFilters() {
-    this.route.navigate(['/products'], { replaceUrl: true });
+    const currentQueryParams = { ...this.activateRoute.snapshot.queryParams };
+    const filterKeys = ['color', 'size', 'price', 'disprice', 'stock', 'sort'];
+
+    filterKeys.forEach(key => delete currentQueryParams[key]);
+
+    this.route.navigate([], {
+      relativeTo: this.activateRoute,
+      queryParams: currentQueryParams,
+      replaceUrl: true,
+    });
+
+    // Reset selections
+    this.filtersData.forEach((item: { options: any[]; }) => {
+      item.options.forEach((option: { selected: boolean; }) => {
+        option.selected = false;
+      });
+    });
+
+    this.singlefiltersData.forEach((item: { selected: null; }) => {
+      item.selected = null;
+    });
   }
 
   onPageChange(page: number) {
