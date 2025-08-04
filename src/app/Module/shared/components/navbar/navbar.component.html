@@ -44,9 +44,11 @@
                     <span class="font-bold text-sm md:text-lg text-[#1f2937] transition-colors duration-200">
                         {{ userProfile.firstName }}
                     </span>
+
                     <div class="relative" [matMenuTriggerFor]="ProfileMenu">
                         <img class="w-8 h-8 rounded-full border-2 border-transparent group-hover:border-primary transition-all duration-300"
-                            src="https://cdn.pixabay.com/photo/2015/03/04/22/35/avatar-659651_640.png" alt="Avatar">
+                            [src]="userProfile.image || 'https://cdn.pixabay.com/photo/2015/03/04/22/35/avatar-659651_640.png'" alt="Avatar" />
+
                         <div
                             class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#231E22]">
                         </div>

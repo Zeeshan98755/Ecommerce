@@ -75,10 +75,21 @@ export class SigninComponent {
     this.showPassword = !this.showPassword;
   }
 
-  openSignupModal() {
+  openSignupModal(): void {
     this.dialog.closeAll();
-    this.dialog.open(SignupComponent, {
+    const dialogRef = this.dialog.open(SignupComponent, {
       width: '400px',
+      disableClose: false,
+      hasBackdrop: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.success) {
+        this.dialog.open(SigninComponent, {
+          width: '400px',
+        });
+      }
     });
   }
+
 }

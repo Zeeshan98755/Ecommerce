@@ -2,17 +2,42 @@
     <div
         class="relative bg-gradient-to-r from-[#69F0AE] to-[#1C1C1C] text-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-hidden">
 
-        <button (click)="closeModal()"
-            class="absolute top-4 right-4 text-white hover:text-gray-300 transition-all duration-200 ease-in-out text-2xl z-10">
-            ✖
-        </button>
-
         <div
             class="p-8 overflow-y-auto max-h-[calc(100vh-3rem)] scrollbar-thin scrollbar-thumb-[#69F0AE] scrollbar-track-transparent">
 
-            <h2 class="text-3xl font-semibold text-center uppercase mb-6">Create Account</h2>
+            <div class="flex items-start justify-between mb-6">
 
-            <form [formGroup]="RegisterForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="relative w-24 h-24 sm:w-28 sm:h-28">
+                    <img *ngIf="imagePreview" [src]="imagePreview" alt="Profile Image"
+                        class="w-full h-full rounded-full object-cover border-4 border-[#69F0AE]" />
+
+                    <div *ngIf="!imagePreview"
+                        class="w-full h-full rounded-full bg-transparent flex items-center justify-center text-white text-sm border-4 border-dashed border-[#69F0AE]">
+                        Upload Image
+                    </div>
+
+                    <input type="file" id="imageInput" class="hidden" (change)="onImageSelected($event)"
+                        accept="image/*" />
+
+                    <label for="imageInput"
+                        class="absolute bottom-0 right-0 bg-[#69F0AE] p-2 rounded-full cursor-pointer hover:bg-[#4de1a0] transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-black" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828L18 10.828M7 7h.01" />
+                        </svg>
+                    </label>
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl font-semibold uppercase text-center flex-1">Create Account</h2>
+
+                <button (click)="closeModal()"
+                    class="text-white hover:text-gray-300 transition-all duration-200 ease-in-out text-2xl ml-4">
+                    ✖
+                </button>
+            </div>
+
+            <form [formGroup]="RegisterForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
                 <div class="relative mb-6">
                     <input type="text" formControlName="firstName"
                         class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"

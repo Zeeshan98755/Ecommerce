@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SigninComponent } from '../signin/signin.component';
 import { LoginService } from '../../../State/Login/login.service';
-import { CommonModule } from '@angular/common';
 import { Observable, map, catchError, of, delay } from 'rxjs';
 
 @Component({
@@ -11,11 +10,13 @@ import { Observable, map, catchError, of, delay } from 'rxjs';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit, OnDestroy {
   @Output() closeModalEvent = new EventEmitter<void>();
   RegisterForm: FormGroup;
   showPassword = false;
   submitted = false;
+  imagePreview: string | ArrayBuffer | null = null;
+  imageError: string = '';
 
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<SigninComponent>, private dialog: MatDialog, private loginsrc: LoginService) {
     this.RegisterForm = this.fb.group({
@@ -27,7 +28,16 @@ export class SignupComponent {
       address: ['', Validators.required],
       city: ['', Validators.required],
       zipCode: ['', Validators.required],
+      image: [null, Validators.required],
     });
+  }
+
+  ngOnInit() {
+    document.body.style.overflow = 'hidden';
+  }
+
+  ngOnDestroy() {
+    document.body.style.overflow = '';
   }
 
   closeModal() {
@@ -103,4 +113,28 @@ export class SignupComponent {
     return of(existingMobiles.includes(mobile)).pipe(delay(1000)); // Simulating API delay
   }
 
+  onImageSelected(event: any): void {
+    const file = event.target.files[0];
+    this.imageError = '';
+
+    if (!file) return;
+
+    const maxSizeMB = 5;
+    const sizeInMB = file.size / (1024 * 1024);
+
+    if (sizeInMB > maxSizeMB) {
+      this.imageError = `Image size must not exceed ${maxSizeMB}MB.`;
+      this.RegisterForm.get('image')?.setErrors({ invalidSize: true });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+      this.RegisterForm.patchValue({ image: reader.result });
+      this.RegisterForm.get('image')?.updateValueAndValidity();
+    };
+
+    reader.readAsDataURL(file);
+  }
 }
