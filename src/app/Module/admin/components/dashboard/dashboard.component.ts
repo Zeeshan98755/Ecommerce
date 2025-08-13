@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
+          image: user.image || null,
           avatarColor: this.getRandomColor(),
         }));
       },

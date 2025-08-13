@@ -13,7 +13,6 @@ export class MainCarouselComponent implements OnInit {
 
   ngOnInit(): void {
     this.carouselDate = homeCarouselData;
-    console.log(this.carouselDate);
     this.autoPlay();
   }
 

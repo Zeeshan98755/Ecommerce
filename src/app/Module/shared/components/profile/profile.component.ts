@@ -14,6 +14,9 @@ export class ProfileComponent {
   submitted = false;
   showPassword = false;
   role: string = '';
+  userProfile: any;
+  imagePreview: string | ArrayBuffer | null = null;
+  imageError: string = '';
 
   constructor(private fb: FormBuilder, private usersrc: UserService, private route: Router) {
     this.profileForm = this.fb.group({
@@ -24,7 +27,8 @@ export class ProfileComponent {
       address: ['', [Validators.required]],
       city: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
-      mobNumber: ['', [Validators.required]]
+      mobNumber: ['', [Validators.required]],
+      image: ['']
     });
 
     this.usersrc.userProfile$.subscribe(user => {
@@ -38,7 +42,8 @@ export class ProfileComponent {
           address: user.address,
           city: user.city,
           zipCode: user.zipCode,
-          mobNumber: user.mobNumber
+          mobNumber: user.mobNumber,
+          image: user.image
         });
       }
     });
@@ -92,5 +97,30 @@ export class ProfileComponent {
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
+  }
+
+  onImageSelected(event: any): void {
+    const file = event.target.files[0];
+    this.imageError = '';
+
+    if (!file) return;
+
+    const maxSizeMB = 5;
+    const sizeInMB = file.size / (1024 * 1024);
+
+    if (sizeInMB > maxSizeMB) {
+      this.imageError = `Image size must not exceed ${maxSizeMB}MB.`;
+      this.profileForm.get('image')?.setErrors({ invalidSize: true });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+      this.profileForm.patchValue({ image: reader.result });
+      this.profileForm.get('image')?.updateValueAndValidity();
+    };
+
+    reader.readAsDataURL(file);
   }
 }

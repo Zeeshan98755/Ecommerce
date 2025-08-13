@@ -3,16 +3,41 @@
     <form [formGroup]="profileForm" (ngSubmit)="updateProfile()"
         class="glass-card w-full max-w-3xl bg-transparent p-8 rounded-2xl shadow-lg shadow-[#69f0ae]/10 border border-gray-800 hover:border-[#69f0ae] transition-all duration-500">
 
-        <div class="mb-10 text-center">
-            <h2 class="text-3xl font-bold text-[#69f0ae] inline-block relative">
-                My Profile
-                <span
-                    class="absolute bottom-0 left-0 w-full h-0.5 bg-[#69f0ae] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"></span>
-            </h2>
-            <p class="mt-2 text-gray-400">Update your personal information</p>
+        <div class="flex flex-col items-center justify-center mt-10 space-y-6">
+            <div class="relative group">
+                <div
+                    class="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-dashed border-[#69F0AE] flex items-center justify-center transition-all duration-500 group-hover:scale-105 shadow-[0_0_20px_#69F0AE55]">
+                    <img *ngIf="profileForm.get('image')?.value; else defaultAvatar"
+                        [src]="profileForm.get('image')?.value" alt="Profile Image"
+                        class="w-full h-full rounded-full object-cover" />
+
+                    <ng-template #defaultAvatar>
+                        <img src="https://cdn.pixabay.com/photo/2015/03/04/22/35/avatar-659651_640.png"
+                            alt="Default Avatar" class="w-full h-full rounded-full object-cover" />
+                    </ng-template>
+                    <input type="file" id="imageInput" class="hidden" (change)="onImageSelected($event)"
+                        accept="image/*" />
+                </div>
+
+                <label for="imageInput"
+                    class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 bg-[#69F0AE] text-black p-2 rounded-full cursor-pointer shadow-md hover:bg-[#4de1a0] transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828L18 10.828M7 7h.01" />
+                    </svg>
+                </label>
+            </div>
+
+            <div class="text-center">
+                <h2 class="text-4xl font-extrabold text-[#69F0AE] tracking-wide mb-1">
+                    My Profile
+                </h2>
+                <p class="text-gray-400 text-sm">Update your personal information</p>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
             <div class="relative group">
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">

@@ -42,9 +42,16 @@
                         [ngClass]="{'border-b-0': last}">
                         <td class="px-4 py-2">{{ startIndex + i + 1 }}</td>
                         <td class="px-4 py-2">
-                            <div class="w-10 h-10 flex items-center justify-center rounded-full text-white"
-                                [ngClass]="customer.avatarColor">
-                                {{ customer.initial }}
+                            <div
+                                class="w-10 h-10 flex items-center justify-center rounded-full text-white">
+                                <img *ngIf="customer.image; else noImage" [src]="customer.image" alt="Avatar"
+                                    class="w-full h-full object-cover rounded-full" />
+                                <ng-template #noImage>
+                                    <div [ngClass]="customer.avatarColor"
+                                        class="w-full h-full flex items-center rounded-full justify-center">
+                                        {{ customer.initial }}
+                                    </div>
+                                </ng-template>
                             </div>
                         </td>
                         <td class="px-4 py-2">{{ customer.firstName }}</td>

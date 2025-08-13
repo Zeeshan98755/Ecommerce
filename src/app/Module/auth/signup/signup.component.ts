@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       address: ['', Validators.required],
       city: ['', Validators.required],
       zipCode: ['', Validators.required],
-      image: [null, Validators.required],
+      image: [''],
     });
   }
 

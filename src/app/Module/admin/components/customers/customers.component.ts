@@ -33,6 +33,7 @@ export class CustomersComponent implements OnInit {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
+          image: user.image || null,
           avatarColor: this.getRandomColor(),
         }));
         this.filteredCustomers = [...this.customers];
@@ -52,7 +53,7 @@ export class CustomersComponent implements OnInit {
       this.filteredCustomers = [...this.customers];
     } else {
       this.filteredCustomers = this.customers.filter(customer =>
-        customer.id.toString().toLowerCase().includes(term)
+        customer.firstName.toLowerCase().includes(term)
       );
     }
     this.currentPage = 1;
