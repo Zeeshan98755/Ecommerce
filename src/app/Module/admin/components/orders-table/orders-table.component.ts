@@ -14,6 +14,8 @@ export class OrdersTableComponent implements OnInit {
   pageSize = 10;
   startIndex = 0;
   totalPages!: number;
+  Math = Math;
+  isOrderModalVisible = false;
   selectedOrder: any = null;
   searchTerm: string = '';
   filteredOrders: any[] = [];
@@ -22,6 +24,8 @@ export class OrdersTableComponent implements OnInit {
   constructor(private adminService: AdminService) { }
 
   ngOnInit() {
+    this.totalPages = Math.ceil(this.orders.length / this.pageSize);
+    this.updatePaginatedOrders();
     this.calculateTotalPages();
     this.updatePaginatedOrders();
     this.fetchOrders();
@@ -81,9 +85,11 @@ export class OrdersTableComponent implements OnInit {
 
   openOrderDetails(order: any) {
     this.selectedOrder = order;
+    this.isOrderModalVisible = true;
   }
 
-  closeOrderDetails() {
+  handleCancel(): void {
+    this.isOrderModalVisible = false;
     this.selectedOrder = null;
   }
 

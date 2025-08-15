@@ -17,6 +17,7 @@ export class SubcategoryTableComponent {
   currentPage = 1;
   pageSize = 10;
   totalPages!: number;
+  Math = Math;
   startIndex = 0;
   visible = false;
   selectedsubCategory: any = null;
@@ -35,6 +36,8 @@ export class SubcategoryTableComponent {
       name: [{ value: '', disabled: true }]
     });
 
+    this.totalPages = Math.ceil(this.subcategories.length / this.pageSize);
+    this.updatePaginatedSubCategories();
     this.getAllmenu();
     this.getAllSubCategory();
     this.getCategoryOptions();

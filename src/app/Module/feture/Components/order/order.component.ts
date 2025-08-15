@@ -17,6 +17,8 @@ export class OrderComponent {
   currentPage = 1;
   pageSize = 5;
   totalPages!: number;
+  Math = Math;
+  totalProducts = 0;
 
   constructor(private orderService: OrderService, private router: Router) { }
 
@@ -75,17 +77,28 @@ export class OrderComponent {
       this.filteredOrders = [...this.orders];
     } else {
       this.filteredOrders = this.orders.filter(order =>
-        this.selectedFilters.includes(order.status)
+        this.selectedFilters
+          .map(s => s.toLowerCase())
+          .includes(order.status.toLowerCase())
       );
     }
 
-    this.totalPages = Math.ceil(this.filteredOrders.length / this.pageSize) || 1;
+    const allProducts = this.filteredOrders.flatMap(order =>
+      order.items.map(item => ({ order, item }))
+    );
+
+    this.totalProducts = allProducts.length;
+    this.totalPages = Math.ceil(allProducts.length / this.pageSize) || 1;
 
     if (this.currentPage > this.totalPages) {
       this.currentPage = 1;
     }
 
     this.updatePaginatedMenus();
+  }
+
+  isStatusHighlighted(status: string): boolean {
+    return this.selectedFilters.map(s => s.toLowerCase()).includes(status.toLowerCase());
   }
 
   navigateToOrderDetails(orderId: string) {
@@ -99,9 +112,27 @@ export class OrderComponent {
   }
 
   updatePaginatedMenus() {
+    const allProducts = this.filteredOrders.flatMap(order =>
+      order.items.map(item => ({ order, item }))
+    );
+
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.paginatedOrders = this.filteredOrders.slice(startIndex, endIndex);
+
+    const paginatedProducts = allProducts.slice(startIndex, endIndex);
+
+    // Group back by order while keeping full order object
+    const grouped: { parentOrder: Order; items: any[] }[] = [];
+    for (const { order, item } of paginatedProducts) {
+      let group = grouped.find(g => g.parentOrder.id === order.id);
+      if (!group) {
+        group = { parentOrder: order, items: [] };
+        grouped.push(group);
+      }
+      group.items.push(item);
+    }
+
+    this.paginatedOrders = grouped;
   }
 
   getPageRange(): number[] {

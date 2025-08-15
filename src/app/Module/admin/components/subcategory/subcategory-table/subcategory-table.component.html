@@ -53,38 +53,52 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <div class="flex justify-center mt-6 w-full overflow-x-auto">
-            <nav aria-label="Pagination" class="w-full">
-                <ul class="inline-flex items-center space-x-2 mx-auto">
-                    <li>
-                        <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
-                            class="prevnext-button">
-                            <i *ngIf="currentPage !== 1" class="fa fa-chevron-left"></i>
-                            <span *ngIf="currentPage === 1">Previous</span>
-                        </button>
-                    </li>
-
-                    <ng-container *ngFor="let page of getPageRange(); let i = index">
-                        <li>
-                            <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
-                                [class.text-black]="currentPage === page" [class.text-[#69F0AE]]="currentPage !== page"
-                                [class.border]="'1px solid #69F0AE'" class="number-count">
-                                {{ page }}
-                            </button>
-                        </li>
-                    </ng-container>
-
-                    <li>
-                        <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
-                            class="prevnext-button">
-                            <i *ngIf="currentPage !== totalPages" class="fa fa-chevron-right"></i>
-                            <span *ngIf="currentPage === totalPages">Next</span>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
+            <div class="flex justify-center mt-6 w-full overflow-x-auto">
+                <!-- Pagination -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
+    
+                    <div class="text-sm text-gray-400">
+                        Showing
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ (currentPage - 1) * pageSize + 1 }}
+                        </span>
+                        to
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ Math.min(currentPage * pageSize, subcategories.length) }}
+                        </span>
+                        of
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ subcategories.length }}
+                        </span>
+                        items
+                    </div>
+    
+                    <nav aria-label="Pagination">
+                        <ul class="flex items-center space-x-2">
+                            <li>
+                                <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+                                    class="prevnext-button">
+                                    Previous
+                                </button>
+                            </li>
+                            <ng-container *ngFor="let page of getPageRange(); let i = index">
+                                <li>
+                                    <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                        [class.text-black]="currentPage === page" class="number-count">
+                                        {{ page }}
+                                    </button>
+                                </li>
+                            </ng-container>
+                            <li>
+                                <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+                                    class="prevnext-button">
+                                    Next
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 </div>

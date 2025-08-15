@@ -13,6 +13,7 @@ export class CustomersComponent implements OnInit {
   currentPage = 1;
   pageSize = 10;
   totalPages!: number;
+  Math = Math;
   startIndex = 0;
   searchTerm: string = '';
   filteredCustomers: any[] = [];
@@ -21,6 +22,8 @@ export class CustomersComponent implements OnInit {
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.totalPages = Math.ceil(this.customers.length / this.pageSize);
+    this.updatePaginatedCustomers();
     this.getAllUser();
   }
 

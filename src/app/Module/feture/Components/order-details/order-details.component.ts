@@ -12,7 +12,12 @@ import Swal from 'sweetalert2';
 export class OrderDetailsComponent implements OnInit, OnDestroy {
   orderId!: string;
   order!: Order;
+  paginatedOrders: any[] = [];
   isLoading: boolean = true;
+  currentPage = 1;
+  pageSize = 5;
+  totalPages!: number;
+  Math = Math;
   errorMessage: string = '';
   pollingInterval: any;
 
@@ -72,6 +77,9 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
         if (this.order?.status !== data.status) {
           this.order = data;
           this.updateOrderStatusSteps(this.order.status);
+
+          this.totalPages = Math.ceil(this.order.items.length / this.pageSize) || 1;
+          this.updatePaginatedMenus();
         }
 
         this.isLoading = false;
@@ -89,5 +97,51 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
       ...step,
       isCompleted: step.title === status || step.isCompleted
     }));
+  }
+
+  onPageChange(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.updatePaginatedMenus();
+  }
+
+  updatePaginatedMenus() {
+    if (!this.order || !this.order.items) {
+      this.paginatedOrders = [];
+      return;
+    }
+
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+
+    this.paginatedOrders = this.order.items.slice(startIndex, endIndex);
+  }
+
+  getPageRange(): number[] {
+    const range = [];
+    const maxPagesToShow = 5;
+    const halfMaxPages = Math.floor(maxPagesToShow / 2);
+
+    let startPage = this.currentPage - halfMaxPages;
+    let endPage = this.currentPage + halfMaxPages;
+
+    if (startPage < 1) {
+      startPage = 1;
+      endPage = maxPagesToShow;
+    }
+
+    if (endPage > this.totalPages) {
+      endPage = this.totalPages;
+      startPage = this.totalPages - maxPagesToShow + 1;
+      if (startPage < 1) {
+        startPage = 1;
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      range.push(i);
+    }
+
+    return range;
   }
 }

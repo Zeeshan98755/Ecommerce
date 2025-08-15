@@ -17,8 +17,9 @@
             <div *ngIf="paginatedOrders.length > 0; else noOrders">
                 <div *ngFor="let order of paginatedOrders; let last=last">
                     <div *ngFor="let item of order.items" class="cursor-pointer"
-                        (click)="navigateToOrderDetails(order.id)">
-                        <app-order-card [orderItem]="item" [order]="order"></app-order-card>
+                        (click)="navigateToOrderDetails(order.parentOrder.id)">
+                        <app-order-card [orderItem]="item" [order]="order.parentOrder"
+                            [highlightStatus]="isStatusHighlighted(order.parentOrder.status)"></app-order-card>
                     </div>
                     <mat-divider *ngIf="!last"></mat-divider>
                 </div>
@@ -38,33 +39,51 @@
             </ng-template>
 
             <div class="flex justify-center mt-6 w-full">
-                <nav aria-label="Pagination" class="w-full">
-                    <ul class="flex items-center justify-center space-x-2">
-                        <li>
-                            <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
-                                class="prevnext-button">
-                                <i *ngIf="currentPage !== 1" class="fa fa-chevron-left"></i>
-                                <span *ngIf="currentPage === 1">Previous</span>
-                            </button>
-                        </li>
-                        <ng-container *ngFor="let page of getPageRange()">
+                <!-- Pagination -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
+
+                    <!-- Total Items Info -->
+                    <div class="text-sm text-gray-400">
+                        Showing
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ (currentPage - 1) * pageSize + 1 }}
+                        </span>
+                        to
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ Math.min(currentPage * pageSize, totalProducts) }}
+                        </span>
+                        of
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ totalProducts }}
+                        </span>
+                        items
+                    </div>
+
+                    <nav aria-label="Pagination">
+                        <ul class="flex items-center space-x-2">
                             <li>
-                                <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
-                                    [class.text-black]="currentPage === page"
-                                    [class.text-[#69F0AE]]="currentPage !== page" class="number-count">
-                                    {{ page }}
+                                <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+                                    class="prevnext-button">
+                                    Previous
                                 </button>
                             </li>
-                        </ng-container>
-                        <li>
-                            <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
-                                class="prevnext-button">
-                                <i *ngIf="currentPage !== totalPages" class="fa fa-chevron-right"></i>
-                                <span *ngIf="currentPage === totalPages">Next</span>
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
+                            <ng-container *ngFor="let page of getPageRange(); let i = index">
+                                <li>
+                                    <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                        [class.text-black]="currentPage === page" class="number-count">
+                                        {{ page }}
+                                    </button>
+                                </li>
+                            </ng-container>
+                            <li>
+                                <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+                                    class="prevnext-button">
+                                    Next
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>

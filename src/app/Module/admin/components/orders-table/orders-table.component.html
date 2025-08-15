@@ -77,21 +77,64 @@
                     </tr>
                 </tbody>
             </table>
+
+            <!-- Pagination -->
+            <div class="flex justify-center mt-6 w-full overflow-x-auto">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
+
+                    <div class="text-sm text-gray-400">
+                        Showing
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ (currentPage - 1) * pageSize + 1 }}
+                        </span>
+                        to
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ Math.min(currentPage * pageSize, orders.length) }}
+                        </span>
+                        of
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ orders.length }}
+                        </span>
+                        items
+                    </div>
+
+                    <nav aria-label="Pagination">
+                        <ul class="flex items-center space-x-2">
+                            <li>
+                                <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+                                    class="prevnext-button">
+                                    Previous
+                                </button>
+                            </li>
+                            <ng-container *ngFor="let page of getPageRange(); let i = index">
+                                <li>
+                                    <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                        [class.text-black]="currentPage === page" class="number-count">
+                                        {{ page }}
+                                    </button>
+                                </li>
+                            </ng-container>
+                            <li>
+                                <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+                                    class="prevnext-button">
+                                    Next
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
 
-        <div *ngIf="selectedOrder"
-            class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-10">
-            <div
-                class="bg-gray-800 text-white rounded-lg  w-full max-w-[90%] sm:max-w-[75%] lg:max-w-[50%] shadow-lg p-5 border border-gray-700 max-h-[80vh] overflow-y-auto">
-                <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                    <h3 class="text-lg font-semibold text-white">Order Details</h3>
-                    <button (click)="closeOrderDetails()" class="text-gray-400 hover:text-gray-300">✖</button>
-                </div>
-
+        <nz-modal [(nzVisible)]="isOrderModalVisible" [nzFooter]="null" [nzTitle]="'Order Details'"
+            (nzOnCancel)="handleCancel()" [nzWidth]="'90%'"
+            [nzBodyStyle]="{ 'max-height': '80vh', 'overflow-y': 'auto', 'padding': '1.25rem' }" nzCentered
+            nzWrapClassName="custom-order-modal">
+            <ng-container *nzModalContent>
                 <div class="mt-4">
-                    <h4 class="font-semibold text-gray-300">Order ID: {{ selectedOrder.id }}</h4>
-                    <p class="text-gray-400">Total Amount: ₹{{ selectedOrder.totalAmount }}</p>
-                    <p class="text-gray-400">Status: {{ selectedOrder.status }}</p>
+                    <h4 class="font-semibold text-gray-300">Order ID: {{ selectedOrder?.id }}</h4>
+                    <p class="text-gray-400">Total Amount: ₹{{ selectedOrder?.totalAmount }}</p>
+                    <p class="text-gray-400">Status: {{ selectedOrder?.status }}</p>
                 </div>
 
                 <h4 class="font-semibold mt-4 text-gray-300">Items</h4>
@@ -109,64 +152,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of selectedOrder.items" class="border-b border-gray-700 text-gray-300">
+                            <tr *ngFor="let item of selectedOrder?.items"
+                                class="border-b border-gray-700 text-gray-300">
                                 <td class="p-2 sm:p-3">
-                                    <img [src]="item.image" alt="Product Image" class="w-10 h-10 rounded">
+                                    <img [src]="item.image" alt="Product Image" class="w-10 h-10 rounded" />
                                 </td>
                                 <td class="p-2 sm:p-3">{{ item.title }}</td>
-                                <td class="p-2 sm:p-3"><span
+                                <td class="p-2 sm:p-3">
+                                    <span
                                         class="font-bold text-xs sm:text-lg uppercase tracking-wide shadow-md px-3 py-1 rounded-md border"
                                         [ngClass]="getColorClass(item.color)">
                                         {{ item.color }}
-                                    </span></td>
+                                    </span>
+                                </td>
                                 <td class="p-2 sm:p-3">{{ item.quantity }}</td>
                                 <td class="p-2 sm:p-3">₹{{ item.price }}</td>
                                 <td class="p-2 sm:p-3">₹{{ item.disprice }}</td>
-                                <td class="p-2 sm:p-3 font-semibold">₹{{ item.quantity * item.disprice }}</td>
+                                <td class="p-2 sm:p-3 font-semibold">
+                                    ₹{{ item.quantity * item.disprice }}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
-                <div class="mt-4 flex justify-end">
-                    <button (click)="closeOrderDetails()"
-                        class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 border border-gray-600">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex justify-center mt-6 w-full overflow-x-auto">
-            <nav aria-label="Pagination" class="w-full">
-                <ul class="inline-flex items-center space-x-2 mx-auto">
-                    <li>
-                        <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
-                            class="prevnext-button">
-                            <i *ngIf="currentPage !== 1" class="fa fa-chevron-left"></i>
-                            <span *ngIf="currentPage === 1">Previous</span>
-                        </button>
-                    </li>
-
-                    <ng-container *ngFor="let page of getPageRange(); let i = index">
-                        <li>
-                            <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
-                                [class.text-black]="currentPage === page" [class.text-[#69F0AE]]="currentPage !== page"
-                                [class.border]="'1px solid #69F0AE'" class="number-count">
-                                {{ page }}
-                            </button>
-                        </li>
-                    </ng-container>
-
-                    <li>
-                        <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
-                            class="prevnext-button">
-                            <i *ngIf="currentPage !== totalPages" class="fa fa-chevron-right"></i>
-                            <span *ngIf="currentPage === totalPages">Next</span>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+            </ng-container>
+        </nz-modal>
     </div>
 </div>

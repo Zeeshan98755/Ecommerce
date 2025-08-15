@@ -212,7 +212,7 @@ body {
     }
 
     .action-icon {
-        @apply hover:border hover:border-[#69f0ae] rounded-md text-[#69f0ae] font-bold px-2 py-1 shadow-lg hover:bg-transparent hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300;
+        @apply border border-transparent hover:border-[#69f0ae] rounded-md text-[#69f0ae] font-bold px-2 py-1 shadow-lg hover:bg-transparent hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300 bg-transparent;
     }
 
     // Pagination

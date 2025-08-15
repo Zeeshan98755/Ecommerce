@@ -118,8 +118,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
         this.relatedProduct = data.filter((item: any) =>
           item.menuId === menuId &&
-        item.categoryId === categoryId &&
-        item.subcategoryId === subcategoryId &&
+          item.categoryId === categoryId &&
+          item.subcategoryId === subcategoryId &&
           item.brandId === brandId &&
           item.id !== productId
         );
@@ -222,12 +222,32 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     lens.style.backgroundImage = `url(${img.src})`;
 
     const rect = img.getBoundingClientRect();
-    const x = event.clientX - rect.left - lens.offsetWidth / 2;
-    const y = event.clientY - rect.top - lens.offsetHeight / 2;
 
-    lens.style.left = `${x}px`;
-    lens.style.top = `${y}px`;
-    lens.style.backgroundPosition = `-${x * 2}px -${y * 2}px`;
+    // Mouse ka real position image ke andar
+    let mouseX = event.clientX - rect.left;
+    let mouseY = event.clientY - rect.top;
+
+    // Lens ko center me rakhne ke liye raw x,y
+    let lensX = mouseX - lens.offsetWidth / 2;
+    let lensY = mouseY - lens.offsetHeight / 2;
+
+    // Clamp lens position (lens ko image ke andar rakhna)
+    const maxX = img.width - lens.offsetWidth;
+    const maxY = img.height - lens.offsetHeight;
+    if (lensX < 0) lensX = 0;
+    if (lensY < 0) lensY = 0;
+    if (lensX > maxX) lensX = maxX;
+    if (lensY > maxY) lensY = maxY;
+
+    lens.style.left = `${lensX}px`;
+    lens.style.top = `${lensY}px`;
+
+    // Zoom factor calculate (background size = image size × factor)
+    const zoomFactor = 2; // 200px lens on 400px image → 800px bg
+    lens.style.backgroundSize = `${img.width * zoomFactor}px ${img.height * zoomFactor}px`;
+
+    // Background position mouse ke real position se calculate
+    lens.style.backgroundPosition = `-${mouseX * zoomFactor - lens.offsetWidth / 2}px -${mouseY * zoomFactor - lens.offsetHeight / 2}px`;
   }
 
   resetZoom() {

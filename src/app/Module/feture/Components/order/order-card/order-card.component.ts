@@ -9,6 +9,7 @@ import { Order, OrderItem } from '../../../../../Models/AppState';
 export class OrderCardComponent {
   @Input() orderItem!: OrderItem;
   @Input() order!: Order;
+  @Input() highlightStatus: boolean = false;
 
   getColorClass(color: string): string {
     const colorClasses: { [key: string]: string } = {

@@ -2,34 +2,34 @@
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 px-4 py-6">
         <div class="image-container relative w-full max-w-md mx-auto lg:mx-0" (mousemove)="zoomImage($event)"
             (mouseleave)="resetZoom()">
-            <img #imageElement [src]="product.image"
+            <img #imageElement [src]="product?.image"
                 class="product-image w-full h-auto object-contain rounded-lg shadow-lg">
             <div #zoomLens class="zoom-lens absolute"></div>
         </div>
 
         <div class="col-span-1 space-y-6 md:space-y-8 mt-6 lg:mt-0">
             <div>
-                <p class="text-xl md:text-2xl font-semibold text-white">{{ product.title }}</p>
+                <p class="text-xl md:text-2xl font-semibold text-white">{{ product?.title }}</p>
             </div>
 
             <div>
-                <app-star-rating [ratingKey]="'product-main-rating-' + product.id"
+                <app-star-rating [ratingKey]="'product-main-rating-' + product?.id"
                     (totalRatingsChange)="updateTotalRatings($event)">
                 </app-star-rating>
             </div>
 
             <div class="flex items-center space-x-5 text-lg">
-                <p class="font-bold text-white">₹{{ product.disprice }}</p>
-                <p class="text-gray-500 line-through">₹{{ product.price }}</p>
-                <p class="text-green-400 font-semibold">{{ product.dispercent }}%</p>
+                <p class="font-bold text-white">₹{{ product?.disprice }}</p>
+                <p class="text-gray-500 line-through">₹{{ product?.price }}</p>
+                <p class="text-green-400 font-semibold">{{ product?.dispercent }}%</p>
             </div>
 
             <div>
                 <p class="text-lg text-white font-semibold flex items-center gap-2">
                     Color:
                     <span class="font-bold text-lg uppercase tracking-wide shadow-md px-3 py-1 rounded-md border"
-                        [ngClass]="getColorClass(product.color)">
-                        {{ product.color }}
+                        [ngClass]="getColorClass(product?.color)">
+                        {{ product?.color }}
                     </span>
                 </p>
             </div>
@@ -40,7 +40,7 @@
             </button>
 
             <div>
-                <p class="text-gray-400 leading-relaxed">{{ product.details }}</p>
+                <p class="text-gray-400 leading-relaxed">{{ product?.details }}</p>
             </div>
         </div>
     </section>
@@ -50,7 +50,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
                 <div class="lg:col-span-7 space-y-5">
                     <div *ngFor="let item of reviews">
-                        <app-product-review-card [product]="product" [productId]="product.id" [reviewId]="item.id"
+                        <app-product-review-card [product]="product" [productId]="product?.id" [reviewId]="item.id"
                             [review]="item">
                         </app-product-review-card>
                     </div>
@@ -60,7 +60,7 @@
                     <div class="box p-6 rounded-lg shadow-lg">
                         <h1 class="text-xl font-semibold pb-1 text-white">Product Ratings</h1>
                         <div class="flex items-center space-x-3 pb-6">
-                            <app-star-rating [ratingKey]="'product-summary-rating-' + product.id"
+                            <app-star-rating [ratingKey]="'product-summary-rating-' + product?.id"
                                 (totalRatingsChange)="updateTotalRatings($event)"
                                 (ratingDistributionChange)="updateRatingDistribution($event)">
                             </app-star-rating>

@@ -18,9 +18,8 @@ export class ProductsComponent implements OnInit {
   pageSize = 30;
   totalPages!: number;
   brandId!: string;
-  isLoading: boolean = false;
-  itemsPerPage!: number;
   showTopClearButton: boolean = true;
+  Math = Math;
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -53,6 +52,8 @@ export class ProductsComponent implements OnInit {
       this.updateFilterSelections(queryParams); // set selected = true
       this.loadProducts();
     });
+    this.totalPages = Math.ceil(this.products.length / this.pageSize);
+    this.updatePaginatedMenus();
   }
 
   updateFilterSelections(queryParams: any) {

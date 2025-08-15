@@ -14,10 +14,13 @@ export class MenuTableComponent {
   currentPage = 1;
   pageSize = 10;
   totalPages!: number;
+  Math = Math;
 
   constructor(private adminService: AdminService, private route: Router) { }
 
   ngOnInit(): void {
+    this.totalPages = Math.ceil(this.menus.length / this.pageSize);
+    this.updatePaginatedMenus();
     this.getAllMenu();
   }
 

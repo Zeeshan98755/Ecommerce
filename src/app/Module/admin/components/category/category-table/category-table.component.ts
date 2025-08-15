@@ -19,6 +19,7 @@ export class CategoryTableComponent {
   currentPage = 1;
   pageSize = 10;
   totalPages!: number;
+  Math = Math;
   searchTerm: string = '';
   filteredCategories: any[] = [];
   filteredCount: number = 0;
@@ -31,6 +32,9 @@ export class CategoryTableComponent {
       menu: [{ value: '', disabled: true }],
       name: [{ value: '', disabled: true }]
     });
+
+    this.totalPages = Math.ceil(this.categories.length / this.pageSize);
+    this.updatePaginatedCategories();
 
     this.getAllCategory();
     this.getMenuOptions();

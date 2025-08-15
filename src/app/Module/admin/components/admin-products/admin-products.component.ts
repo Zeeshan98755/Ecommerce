@@ -20,6 +20,7 @@ export class AdminProductsComponent implements OnInit {
   currentPage = 1;
   pageSize = 10;
   totalPages!: number;
+  Math = Math;
   startIndex = 0;
   visible = false;
   selectedProduct: any = null;
@@ -46,6 +47,8 @@ export class AdminProductsComponent implements OnInit {
       dispercent: [{ value: '', disabled: true }],
     });
 
+    this.totalPages = Math.ceil(this.products.length / this.pageSize);
+    this.updatePaginatedProducts();
     this.getAllproduct();
     this.getAllmenu();
     this.getAllcategory();

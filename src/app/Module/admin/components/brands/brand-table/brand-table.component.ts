@@ -16,6 +16,7 @@ export class BrandTableComponent {
   currentPage = 1;
   pageSize = 10;
   totalPages!: number;
+  Math = Math;
   startIndex = 0;
   visible = false;
   selectedBrand: any = null;
@@ -33,6 +34,8 @@ export class BrandTableComponent {
       name: [{ value: '', disabled: true }]
     });
 
+    this.totalPages = Math.ceil(this.brands.length / this.pageSize);
+    this.updatePaginatedBrands();
     this.getAllBrand();
     this.getMenuOptions();
   }

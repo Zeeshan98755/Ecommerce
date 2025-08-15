@@ -3,7 +3,7 @@
         <section class="lg:col-span-2 lg:px-5">
             <div class="box p-5 space-y-3">
                 <ng-container *ngIf="cart.length > 0; else emptyCart">
-                    <div *ngFor="let product of cart; let i = index; let last = last">
+                    <div *ngFor="let product of paginatedcart; let i = index; let last = last">
                         <app-cart-item [cartItem]="product" [index]="i"
                             (cartUpdated)="cartService.loadCart()"></app-cart-item>
                         <mat-divider *ngIf="!last"></mat-divider>
@@ -11,7 +11,8 @@
                 </ng-container>
                 <ng-template #emptyCart>
                     <div class="flex flex-col items-center justify-center text-gray-400 py-10">
-                        <svg class="w-28 h-28 !text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <svg class="w-28 h-28 !text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512">
                             <path
                                 d="M351.9 329.506H206.81l-3.072-12.56H368.16l26.63-116.019-217.23-26.04-9.952-58.09h-50.4v21.946h31.894l35.233 191.246a32.927 32.927 0 1 0 36.363 21.462h100.244a32.825 32.825 0 1 0 30.957-21.945zM181.427 197.45l186.51 22.358-17.258 75.195H198.917z"
                                 data-name="Shopping Cart" />
@@ -25,6 +26,52 @@
                         </a>
                     </div>
                 </ng-template>
+
+                <!-- Pagination -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
+
+                    <!-- Total Items Info -->
+                    <div class="text-sm text-gray-400">
+                        Showing
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ (currentPage - 1) * pageSize + 1 }}
+                        </span>
+                        to
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ Math.min(currentPage * pageSize, cart.length) }}
+                        </span>
+                        of
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ cart.length }}
+                        </span>
+                        items
+                    </div>
+
+                    <nav aria-label="Pagination">
+                        <ul class="flex items-center space-x-2">
+                            <li>
+                                <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+                                    class="prevnext-button">
+                                    Previous
+                                </button>
+                            </li>
+                            <ng-container *ngFor="let page of getPageRange(); let i = index">
+                                <li>
+                                    <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                        [class.text-black]="currentPage === page" class="number-count">
+                                        {{ page }}
+                                    </button>
+                                </li>
+                            </ng-container>
+                            <li>
+                                <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+                                    class="prevnext-button">
+                                    Next
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </section>
 

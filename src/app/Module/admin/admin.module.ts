@@ -23,6 +23,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NgZorroAntdModule } from '../shared/ng-zorro-antd.module';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzFormModule,
     NzSelectModule,
     NzInputModule,
-    NzIconModule
+    NzIconModule,
+    NgZorroAntdModule
   ]
 })
 export class AdminModule { }

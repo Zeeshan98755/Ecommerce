@@ -6,10 +6,56 @@
         <div class="grid grid-cols-1 gap-5 lg:grid-cols-3 relative py-5">
             <div class="lg:col-span-2 space-y-5">
                 <div class="space-y-3 box rounded-md p-5">
-                    <div *ngFor="let product of cart; let last=last">
+                    <div *ngFor="let product of paginatedcart; let last=last">
                         <app-cart-item [cartItem]="product"></app-cart-item>
                         <mat-divider *ngIf="!last"></mat-divider>
                     </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
+
+                    <!-- Total Items Info -->
+                    <div class="text-sm text-gray-400">
+                        Showing
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ (currentPage - 1) * pageSize + 1 }}
+                        </span>
+                        to
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ Math.min(currentPage * pageSize, cart.length) }}
+                        </span>
+                        of
+                        <span class="text-[#69F0AE] font-semibold">
+                            {{ cart.length }}
+                        </span>
+                        items
+                    </div>
+
+                    <nav aria-label="Pagination">
+                        <ul class="flex items-center space-x-2">
+                            <li>
+                                <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+                                    class="prevnext-button">
+                                    Previous
+                                </button>
+                            </li>
+                            <ng-container *ngFor="let page of getPageRange(); let i = index">
+                                <li>
+                                    <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                        [class.text-black]="currentPage === page" class="number-count">
+                                        {{ page }}
+                                    </button>
+                                </li>
+                            </ng-container>
+                            <li>
+                                <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+                                    class="prevnext-button">
+                                    Next
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
             <section class="col-span-1 lg:sticky lg:top-24 mt-5 lg:mt-0">

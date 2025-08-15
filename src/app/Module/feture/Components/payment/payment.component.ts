@@ -12,12 +12,28 @@ import Swal from 'sweetalert2'
 export class PaymentComponent {
   adresses: any[] = [];
   cart: any[] = [];
+  paginatedcart: any[] = [];
+  currentPage = 1;
+  pageSize = 3;
+  totalPages!: number;
+  Math = Math;
 
   constructor(private route: Router, public cartService: CartService, private ordersrc: OrderService) { }
 
   ngOnInit() {
     this.cartService.cartItems$.subscribe((cart) => {
       this.cart = cart;
+
+      this.totalPages = Math.ceil(this.cart.length / this.pageSize);
+
+      if (this.currentPage > this.totalPages && this.totalPages > 0) {
+        this.currentPage = this.totalPages;
+      }
+      if (this.totalPages === 0) {
+        this.currentPage = 1;
+      }
+
+      this.updatePaginatedMenus();
     });
 
     this.getUserAddress();
@@ -112,5 +128,45 @@ export class PaymentComponent {
         console.error('Failed to create order', error);
       }
     });
+  }
+
+  onPageChange(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.updatePaginatedMenus();
+  }
+
+  updatePaginatedMenus() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedcart = this.cart.slice(startIndex, endIndex);
+  }
+
+  getPageRange(): number[] {
+    const range = [];
+    const maxPagesToShow = 5;
+    const halfMaxPages = Math.floor(maxPagesToShow / 2);
+
+    let startPage = this.currentPage - halfMaxPages;
+    let endPage = this.currentPage + halfMaxPages;
+
+    if (startPage < 1) {
+      startPage = 1;
+      endPage = maxPagesToShow;
+    }
+
+    if (endPage > this.totalPages) {
+      endPage = this.totalPages;
+      startPage = this.totalPages - maxPagesToShow + 1;
+      if (startPage < 1) {
+        startPage = 1;
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      range.push(i);
+    }
+
+    return range;
   }
 }
