@@ -4,16 +4,17 @@
     </div>
 
     <div>
-        <!-- Product slider for men's brands -->
-        <app-product-slider title="Men's Jeans" [products]="menBrands" (brandClick)="loadProducts($event)">
+        <app-product-slider title="Men's Jeans" [products]="brandsMap['menBrands']" (brandClick)="loadProducts($event)">
         </app-product-slider>
-        <app-product-slider title="Women's Gowns" [products]="womenGoun" (brandClick)="loadProducts($event)">
+        <app-product-slider title="Women's Gowns" [products]="brandsMap['womenGoun']"
+            (brandClick)="loadProducts($event)">
         </app-product-slider>
-        <app-product-slider title="Lehenga Choli" [products]="lenghaCholi" (brandClick)="loadProducts($event)">
+        <app-product-slider title="Lehenga Choli" [products]="brandsMap['lenghaCholi']"
+            (brandClick)="loadProducts($event)">
         </app-product-slider>
-        <app-product-slider title="Men's Kurta" [products]="menKurta" (brandClick)="loadProducts($event)">
+        <app-product-slider title="Men's Kurta" [products]="brandsMap['menKurta']" (brandClick)="loadProducts($event)">
         </app-product-slider>
-        <app-product-slider title="Shoes" [products]="mensShoe" (brandClick)="loadProducts($event)">
+        <app-product-slider title="Shoes" [products]="brandsMap['mensShoe']" (brandClick)="loadProducts($event)">
         </app-product-slider>
     </div>
 

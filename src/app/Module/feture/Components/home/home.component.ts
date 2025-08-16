@@ -18,49 +18,25 @@ export class HomeComponent implements OnInit {
   constructor(private adminService: AdminService) { }
 
   ngOnInit() {
-    this.loadMenBrands();
-    this.loadwomenGoun();
-    this.loadlenghaCholi();
-    this.loadmenKurta();
-    this.loadmensShoe();
+    this.loadBrands('7013', 'jeans', 'menBrands');
+    this.loadBrands('a6ad', 'gown', 'womenGoun');
+    this.loadBrands('a6ad', 'lehenga choli', 'lenghaCholi');
+    this.loadBrands('7013', 'kurta', 'menKurta');
+    this.loadBrands('7013', 'shoes', 'mensShoe');
   }
 
-  loadMenBrands() {
-    this.adminService.getBrandByMenuId('7013').subscribe((res) => {
-      this.menBrands = res.filter((brand: any) =>
-        brand.name && brand.image && brand.title && brand.title.toLowerCase().includes('jeans')
-      );
-    });
-  }
-  
-  loadwomenGoun() {
-    this.adminService.getBrandByMenuId('a6ad').subscribe((res) => {
-      this.womenGoun = res.filter((brand: any) =>
-        brand.name && brand.image && brand.title && brand.title.toLowerCase().includes('gown')
-      );
-    });
-  }
+  brandsMap: { [key: string]: any[] } = {
+    menBrands: [],
+    womenGoun: [],
+    lenghaCholi: [],
+    menKurta: [],
+    mensShoe: []
+  };
 
-  loadlenghaCholi() {
-    this.adminService.getBrandByMenuId('a6ad').subscribe((res) => {
-      this.lenghaCholi = res.filter((brand: any) =>
-        brand.name && brand.image && brand.title && brand.title.toLowerCase().includes('lehenga choli')
-      );
-    });
-  }
-
-  loadmenKurta() {
-    this.adminService.getBrandByMenuId('7013').subscribe((res) => {
-      this.menKurta = res.filter((brand: any) =>
-        brand.name && brand.image && brand.title && brand.title.toLowerCase().includes('kurta')
-      );
-    });
-  }
-
-  loadmensShoe() {
-    this.adminService.getBrandByMenuId('7013').subscribe((res) => {
-      this.mensShoe = res.filter((brand: any) =>
-        brand.name && brand.image && brand.title && brand.title.toLowerCase().includes('shoes')
+  loadBrands(menuId: string, keyword: string, targetKey: string) {
+    this.adminService.getBrandByMenuId(menuId).subscribe((res: any[]) => {
+      this.brandsMap[targetKey] = res.filter(brand =>
+        brand.name && brand.image && brand.title && brand.title.toLowerCase().includes(keyword.toLowerCase())
       );
     });
   }
