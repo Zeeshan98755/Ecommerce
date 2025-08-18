@@ -238,7 +238,7 @@ body {
     // Drawer End
 
     .glass-card {
-        @apply overflow-hidden border border-gray-600 rounded-xl bg-opacity-10 backdrop-blur-md shadow-lg transition-all duration-300 hover:border-[#69f0ae] hover:scale-105;
+        @apply overflow-hidden border border-gray-600 rounded-xl bg-opacity-10 backdrop-blur-md shadow-lg hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300 hover:scale-105;
     }
 
     // Admin Panel End
