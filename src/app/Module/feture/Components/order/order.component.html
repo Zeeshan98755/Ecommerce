@@ -38,7 +38,7 @@
                 </div>
             </ng-template>
 
-            <div class="flex justify-center mt-6 w-full">
+            <div *ngIf="orders.length > 0" class="flex justify-center mt-6 w-full">
                 <!-- Pagination -->
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
 

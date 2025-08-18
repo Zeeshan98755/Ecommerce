@@ -13,7 +13,8 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
+                <div *ngIf="cart.length > 0"
+                    class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
 
                     <!-- Total Items Info -->
                     <div class="text-sm text-gray-400">

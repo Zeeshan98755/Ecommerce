@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit {
   private scrollPosition = 0;
   menu: any[] = [];
   cartCount: number = 0;
+  wishlistCount: number = 0;
   isMobileMenuOpen: boolean = false;
   @ViewChild('navbarContent') navbarContent!: ElementRef;
 
@@ -118,7 +119,10 @@ export class NavbarComponent implements OnInit {
 
   navigateTo(path: any) {
     const isLoggedIn = localStorage.getItem('user');
-    if (!isLoggedIn) {
+    
+    const restrictedPaths = ['cart', 'account/orders'];
+
+    if (!isLoggedIn && restrictedPaths.includes(path)) {
       Swal.fire({
         title: 'Login Required ❗',
         text: 'Please login first to access the cart!',
