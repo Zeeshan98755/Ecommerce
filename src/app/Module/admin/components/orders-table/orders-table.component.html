@@ -29,7 +29,7 @@
                 <thead>
                     <tr class="border-b">
                         <th class="p-3 text-left">Id</th>
-                        <th class="p-3 text-left">User ID</th>
+                        <th class="p-3 text-left">User Name</th>
                         <th class="p-3 text-left">Total Amount</th>
                         <th class="p-3 text-left">Status</th>
                         <th class="p-3 text-left">Update</th>
@@ -41,7 +41,7 @@
                         *ngFor="let order of paginatedorder; let i = index let last=last"
                         [ngClass]="{'border-b-0': last}">
                         <td class="p-3">{{ startIndex + i + 1 }}</td>
-                        <td class="p-3">{{ order.userId }}</td>
+                        <td class="p-3">{{ order.userName }}</td>
                         <td class="p-3 font-semibold">₹{{ order.totalAmount }}</td>
                         <td class="p-3">
                             <span class="p-2 text-white rounded-full" [ngClass]="{

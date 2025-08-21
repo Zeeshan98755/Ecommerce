@@ -8,6 +8,7 @@ import { CartService } from '../../../../State/Cart/cart.service';
 import { ProductService } from '../../../../State/Product/product.service';
 import { OrderService } from '../../../../State/Order/order.service';
 import Swal from 'sweetalert2'
+import { WishlistService } from '../../../../State/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,7 @@ import Swal from 'sweetalert2'
 })
 export class NavbarComponent implements OnInit {
   userData: any;
-  constructor(private route: Router, private dialog: MatDialog, private usersrc: UserService, private adminsrc: AdminService, private cartsrc: CartService, private prosrc: ProductService, private ordersrc: OrderService) { }
+  constructor(private route: Router, private dialog: MatDialog, private usersrc: UserService, private adminsrc: AdminService, private cartsrc: CartService, private prosrc: ProductService, private ordersrc: OrderService, private wishlistsrc: WishlistService) { }
   isNavbarContentOpen: boolean = false;
   currentSection: any;
   showModal = false;
@@ -43,6 +44,10 @@ export class NavbarComponent implements OnInit {
     });
     this.cartsrc.getCartCount().subscribe(count => {
       this.cartCount = count;
+    });
+
+    this.wishlistsrc.getWishlistCount().subscribe(count => {
+      this.wishlistCount = count;
     });
 
     this.route.events.subscribe(event => {

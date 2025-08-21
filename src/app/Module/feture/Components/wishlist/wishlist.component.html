@@ -1,0 +1,85 @@
+<section class="pt-10 px-6">
+    <!-- Page Heading -->
+    <div class="text-center mb-10">
+        <h1 class="text-3xl md:text-4xl font-bold text-white tracking-wide">
+            My Wishlist
+        </h1>
+        <p class="text-gray-400 mt-2 text-base">
+            Your favorite products, all in one place
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1">
+        <!-- Products Section -->
+        <div class="lg:col-span-3">
+            <div *ngIf="wishlist.length > 0; else noWishlist"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-4">
+                <ng-container *ngFor="let item of paginatedwishlist">
+                    <app-product-card [product]="item"></app-product-card>
+                </ng-container>
+            </div>
+
+            <!-- No Wishlist Data -->
+            <ng-template #noWishlist>
+                <div class="flex flex-col items-center justify-center h-[36vh] text-center mb-12">
+                    <div class="flex items-center justify-center w-24 h-24 rounded-full border border-[#69F0AE] mb-6">
+                        <i class="fa-regular fa-heart fa-beat text-4xl text-[#69f0ae]"></i>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-white mb-2">Your wishlist is empty</h2>
+                    <p class="text-gray-400 mb-6">Looks like you haven’t added anything yet.</p>
+                    <button routerLink="/products"
+                        class="!px-6 !py-2 rounded-lg !bg-gradient-to-r !from-[#69F0AE] !via-emerald-400 !to-green-500 
+                            !text-gray-900 !font-semibold !text-sm !shadow-md hover:!shadow-lg hover:!scale-105 transition-all duration-300">
+                        Back to Products
+                    </button>
+                </div>
+            </ng-template>
+
+            <!-- Pagination -->
+            <div *ngIf="wishlist.length > 0"
+                class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
+                <!-- Total Items Info -->
+                <div class="text-sm text-gray-400">
+                    Showing
+                    <span class="text-[#69F0AE] font-semibold">
+                        {{ (currentPage - 1) * pageSize + 1 }}
+                    </span>
+                    to
+                    <span class="text-[#69F0AE] font-semibold">
+                        {{ Math.min(currentPage * pageSize, wishlist.length) }}
+                    </span>
+                    of
+                    <span class="text-[#69F0AE] font-semibold">
+                        {{ wishlist.length }}
+                    </span>
+                    items
+                </div>
+
+                <nav aria-label="Pagination">
+                    <ul class="flex items-center space-x-2">
+                        <li>
+                            <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+                                class="prevnext-button">
+                                Previous
+                            </button>
+                        </li>
+                        <ng-container *ngFor="let page of getPageRange(); let i = index">
+                            <li>
+                                <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                    [class.text-black]="currentPage === page" class="number-count">
+                                    {{ page }}
+                                </button>
+                            </li>
+                        </ng-container>
+                        <li>
+                            <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+                                class="prevnext-button">
+                                Next
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>

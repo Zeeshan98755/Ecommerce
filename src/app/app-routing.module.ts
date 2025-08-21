@@ -14,11 +14,13 @@ import { AuthGuardService } from './State/Auth/auth-guard.service';
 import { ContactComponent } from './Module/shared/components/contact/contact.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { WishlistComponent } from './Module/feture/Components/wishlist/wishlist.component';
 
 const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./Module/admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuardService] },
   { path: '', component: HomeComponent },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuardService] },
+  { path: 'wishlist', component: WishlistComponent },
   { path: 'product_details/:id', component: ProductDetailsComponent },
   { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuardService] },
   { path: 'checkout/payment/:id', component: PaymentComponent, canActivate: [AuthGuardService] },

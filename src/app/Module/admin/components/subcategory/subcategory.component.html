@@ -9,7 +9,7 @@
             <div class="flex flex-col">
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
-                        <select formControlName="menu" (change)="onMenuChange($event)" class="peer form-select">
+                        <select formControlName="menu" (change)="onMenuChange($event)" class="peer form-select px-2">
                             <option value="" disabled selected class="text-gray-300 bg-gray-900">Select Menu</option>
                             <option *ngFor="let item of menu" [value]="item.id"
                                 class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
@@ -29,7 +29,7 @@
             <div class="flex flex-col">
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
-                        <select formControlName="category" class="peer form-select">
+                        <select formControlName="category" class="peer form-select px-2">
                             <option value="" disabled selected class="text-gray-300 bg-gray-900">Select Category
                             </option>
                             <option *ngFor="let item of categories" [value]="item.id"

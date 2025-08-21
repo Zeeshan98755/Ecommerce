@@ -43,10 +43,10 @@ export class OrderComponent {
   fetchOrderHistory() {
     this.orderService.getOrderHistory().subscribe(
       (data: Order[]) => {
-        this.orders = data.map(order => ({
-          ...order,
-          items: order.items || []
-        }));
+        this.orders = data
+          .map(order => ({ ...order, items: order.items || [] }))
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
         this.applyFilters();
         if (this.orders.length > 0) {
           console.log("Total orders received:", this.orders.length);

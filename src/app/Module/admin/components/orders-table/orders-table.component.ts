@@ -34,12 +34,15 @@ export class OrdersTableComponent implements OnInit {
   fetchOrders() {
     this.adminService.getOrders().subscribe({
       next: (data) => {
-        this.orders = data;
+        this.orders = data.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+
         this.filteredOrders = [...this.orders];
         this.filteredCount = this.filteredOrders.length;
         this.calculateTotalPages();
         this.updatePaginatedOrders();
-        this.storeOrdersInLocalStorage(data);
+        this.storeOrdersInLocalStorage(this.orders);
       },
       error: (error) => console.error('Error fetching orders:', error)
     });
@@ -51,7 +54,7 @@ export class OrdersTableComponent implements OnInit {
       this.filteredOrders = [...this.orders];
     } else {
       this.filteredOrders = this.orders.filter(order =>
-        order.id.toString().toLowerCase().includes(term)
+        order.userName.toLowerCase().includes(term)
       );
     }
     this.currentPage = 1;

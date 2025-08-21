@@ -88,7 +88,7 @@ export class AdminService {
             this.apiService.get(`http://localhost:3000/user/${order.userId}`).pipe(
               map(user => ({
                 ...order,
-                userName: user ? user.name : 'Unknown'
+                userName: user ? `${user.firstName} ${user.lastName}` : 'Unknown'
               }))
             )
           )

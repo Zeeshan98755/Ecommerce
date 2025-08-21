@@ -30,6 +30,7 @@ import { OrderCardComponent } from './Components/order/order-card/order-card.com
 import { OrderDetailsComponent } from './Components/order-details/order-details.component';
 import { RouterModule } from '@angular/router';
 import { routes } from '../../app.routes';
+import { WishlistComponent } from './Components/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { routes } from '../../app.routes';
     OrderComponent,
     CartComponent,
     OrderCardComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    WishlistComponent
   ],
   imports: [
     CommonModule,
@@ -80,6 +82,7 @@ import { routes } from '../../app.routes';
     CartComponent,
     OrderCardComponent,
     OrderDetailsComponent,
+    WishlistComponent,
     RouterModule
   ]
 })

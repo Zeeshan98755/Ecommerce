@@ -15,9 +15,25 @@
                 <p class="text-gray-600 line-through">₹{{product.price}}</p>
                 <p class="text-[#69f0ae] font-semibold">{{product.dispercent}}%</p>
             </div>
-            <div class="cursor-pointer">
-                <i class="fa-regular fa-heart fa-beat text-2xl text-[#69f0ae]"></i>
+            <div class="relative cursor-pointer">
+                <mat-icon *ngIf="isWishlistPage()" class="text-2xl text-[#69f0ae]">
+                    shopping_cart
+                </mat-icon>
+
+                <i *ngIf="!isWishlistPage()"
+                    [ngClass]="isWishlisted() ? 'fa-solid fa-heart text-2xl text-[#69f0ae]' : 'fa-regular fa-heart text-2xl text-[#69f0ae]'"
+                    class="relative z-10" (click)="toggleWishlist(product, $event)">
+                </i>
+
+                <i *ngIf="isWishlistPage()" class="fa-solid fa-trash text-red-500 text-2xl ml-2 cursor-pointer"
+                    (click)="removeFromWishlist(product, $event)">
+                </i>
+
+                <span *ngIf="product.showRipple"
+                    class="absolute inset-0 rounded-full bg-[#69f0ae] opacity-50 animate-ripple">
+                </span>
             </div>
+
         </div>
     </div>
 </div>
