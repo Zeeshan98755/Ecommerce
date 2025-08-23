@@ -1,7 +1,7 @@
-<div class="min-h-screen bg-black flex items-center justify-center px-4 py-6">
+<div class="min-h-screen bg-white flex items-center justify-center px-4 py-6">
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()"
-        class="glass-card w-full max-w-5xl bg-gray-900/50 backdrop-blur-md p-5 rounded-lg shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
-        <h2 class="text-2xl font-semibold text-[#69f0ae] text-center mb-6">
+        class="glass-card w-full max-w-5xl bg-white text-gray-800 backdrop-blur-md p-5 rounded-lg shadow-2xl border border-gray-200 hover:border-[#1976d2] hover:shadow-[0_0_12px_#1976d250] transition-all duration-300">
+        <h2 class="text-2xl font-semibold text-[#1976d2] text-center mb-6">
             {{ editMode ? 'Edit Product' : 'Add New Product' }}
         </h2>
         <div *ngIf="editMode" class="w-full h-40 overflow-hidden flex items-center justify-center mb-6">
@@ -13,9 +13,9 @@
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
                         <select formControlName="menu" class="peer form-select px-2" (change)="onMenuChange($event)">
-                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select a menu</option>
-                            <option *ngFor="let item of menu" [value]="item.id"
-                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                            <option value="" disabled selected class="text-gray-800 bg-white">Select a menu</option>
+                            <option *ngFor="let item of menu" [value]="item.id" class="text-gray-800 bg-white">{{
+                                item.name }}</option>
                         </select>
                         <label class="form-label">Select
                             Menu</label>
@@ -26,11 +26,12 @@
             <div class="flex flex-col">
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
-                        <select formControlName="category" class="peer form-select px-2" (change)="onCategoryChange($event)">
-                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select a category
+                        <select formControlName="category" class="peer form-select px-2"
+                            (change)="onCategoryChange($event)">
+                            <option value="" disabled selected class="text-gray-800 bg-white">Select a category
                             </option>
-                            <option *ngFor="let item of categories" [value]="item.id"
-                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                            <option *ngFor="let item of categories" [value]="item.id" class="text-gray-800 bg-white">{{
+                                item.name }}</option>
                         </select>
                         <label class="form-label">Select
                             Category</label>
@@ -42,10 +43,10 @@
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
                         <select formControlName="subcategory" class="peer form-select px-2">
-                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select a subcategory
+                            <option value="" disabled selected class="text-gray-800 bg-white">Select a subcategory
                             </option>
-                            <option *ngFor="let item of subcategories" [value]="item.id"
-                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                            <option *ngFor="let item of subcategories" [value]="item.id" class="text-gray-800 bg-white">
+                                {{ item.name }}</option>
                         </select>
                         <label class="form-label">Select
                             Sub Category</label>
@@ -59,9 +60,9 @@
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
                         <select formControlName="brand" class="peer form-select px-2">
-                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select a brand</option>
-                            <option *ngFor="let item of brands" [value]="item.id"
-                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                            <option value="" disabled selected class="text-gray-800 bg-white">Select a brand</option>
+                            <option *ngFor="let item of brands" [value]="item.id" class="text-gray-800 bg-white">{{
+                                item.name }}</option>
                         </select>
                         <label class="form-label">Select
                             Brand</label>
@@ -108,9 +109,9 @@
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
                         <select formControlName="color" class="peer form-select px-2">
-                            <option value="" disabled selected class="text-gray-500 bg-gray-900">Select Color</option>
-                            <option *ngFor="let color of colors" [value]="color"
-                                class="text-white bg-gray-800 hover:bg-gray-700">{{ color }}</option>
+                            <option value="" disabled selected class="text-gray-800 bg-white">Select Color</option>
+                            <option *ngFor="let color of colors" [value]="color" class="text-gray-800 bg-white">{{ color
+                                }}</option>
                         </select>
                         <label class="form-label">
                             Color

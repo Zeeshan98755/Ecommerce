@@ -1,1 +1,1 @@
-.icon-style{@apply w-12 h-12 mx-auto text-[#69f0ae] hover:text-[#69F0AE] hover:border hover:border-[#69F0AE] hover:rounded-full p-2 transition-all duration-300 flex items-center justify-center}
+.icon-style{@apply w-12 h-12 mx-auto text-[#1e88e5] p-2 transition-all duration-300 flex items-center justify-center rounded-full border border-transparent hover:border-[#1e88e5] hover:shadow-[0_0_15px_#1e88e5]}

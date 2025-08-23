@@ -1,11 +1,11 @@
-<div class="p-5 shadow-lg">
+<div class="p-5 shadow-lg bg-white">
     <div class="flex items-center">
         <div class="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem]">
             <img class="w-full h-full object-cover object-top" [src]="cartItem.image" alt="">
         </div>
         <div class="ml-5 space-y-1">
-            <p class="font-semibold">{{ cartItem.title }}</p>
-            <p class="text-lg text-white font-semibold flex items-center gap-2">
+            <p class="font-semibold text-gray-900">{{ cartItem.title }}</p>
+            <p class="text-lg text-gray-900 font-semibold flex items-center gap-2">
                 Color:
                 <span class="font-bold text-lg uppercase tracking-wide shadow-md px-3 py-1 rounded-md border"
                     [ngClass]="getColorClass(cartItem.color)">
@@ -13,30 +13,30 @@
                 </span>
             </p>
             <div class="flex space-x-2 items-center pt-3">
-                <p class="font-semibold text-lg">₹{{ cartItem.disprice }}</p>
+                <p class="font-semibold text-lg text-gray-900">₹{{ cartItem.disprice }}</p>
                 <p class="text-gray-500 line-through">₹{{ cartItem.price }}</p>
-                <p class="text-green-600 font-semibold">{{ cartItem.dispercent }}% off</p>
+                <p class="text-blue-700 font-semibold">{{ cartItem.dispercent }}% off</p>
             </div>
         </div>
     </div>
     <div class="flex items-center lg:space-x-10 pt-4 justify-between">
         <div class="flex !items-center space-x-2">
-            <button mat-mini-fab (click)="updateCartItem(-1)">
-                <mat-icon
-                    class="!p-5 !items-center !justify-center !flex hover:bg-[#69F0AE] !border !border-[#69f0ae] !bg-[#69f0ae] text-black font-bold !rounded-full shadow-lg 
-                    hover:!bg-transparent hover:!text-[#69f0ae] hover:!shadow-[0_0_15px_#69F0AE] transition-all duration-300">remove</mat-icon>
+            <button (click)="updateCartItem(-1)" style="margin-top: -24px;">
+                <mat-icon class="!p-4 !items-center !justify-center !flex font-bold !rounded-full btn-primary">
+                    remove
+                </mat-icon>
             </button>
             <span class="py-1 px-7 border border-gray-800 rounded-sm">
                 {{ cartItem.quantity }}
             </span>
-            <button mat-mini-fab (click)="updateCartItem(1)">
-                <mat-icon
-                    class="!p-5 !items-center !justify-center !flex hover:bg-[#69F0AE] !border !border-[#69f0ae] !bg-[#69f0ae] text-black font-bold !rounded-full shadow-lg 
-                    hover:!bg-transparent hover:!text-[#69f0ae] hover:!shadow-[0_0_15px_#69F0AE] transition-all duration-300">add</mat-icon>
+            <button (click)="updateCartItem(1)" style="margin-top: -24px;">
+                <mat-icon class="!p-4 !items-center !justify-center !flex font-bold !rounded-full btn-primary">
+                    add
+                </mat-icon>
             </button>
         </div>
-        <button (click)="removeCartItem()" mat-stroked-button class="!px-3 !py-1 hover:bg-[#69F0AE] !border !border-[#69f0ae] !bg-[#69f0ae] !text-black font-bold p-3 !rounded-md shadow-lg 
-            hover:!bg-transparent hover:!text-[#69f0ae] hover:!shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+        <button (click)="removeCartItem()"
+            class="!px-3 !py-1 font-bold !rounded-md !items-center !justify-center !flex btn-primary">
             Remove
         </button>
     </div>

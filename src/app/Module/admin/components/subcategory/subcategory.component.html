@@ -1,7 +1,7 @@
-<div class="min-h-screen bg-black flex items-center justify-center px-4 py-6">
+<div class="min-h-screen bg-white flex items-center justify-center px-4 py-6">
     <form [formGroup]="subcategoryForm" (ngSubmit)="onSubmit()"
-        class="glass-card w-full max-w-3xl bg-gray-900/50 backdrop-blur-md p-6 rounded-lg shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
-        <h2 class="text-xl font-semibold text-[#69f0ae] text-center mb-6">
+        class="glass-card w-full max-w-3xl bg-white text-gray-800 backdrop-blur-md p-6 rounded-lg shadow-2xl border border-gray-200 hover:border-[#1976d2] hover:shadow-[0_0_12px_#1976d250] transition-all duration-300">
+        <h2 class="text-xl font-semibold text-[#1976d2] text-center mb-6">
             {{ editMode ? 'Edit Sub Category' : 'Add New Sub Category' }}
         </h2>
 
@@ -10,9 +10,9 @@
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
                         <select formControlName="menu" (change)="onMenuChange($event)" class="peer form-select px-2">
-                            <option value="" disabled selected class="text-gray-300 bg-gray-900">Select Menu</option>
-                            <option *ngFor="let item of menu" [value]="item.id"
-                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                            <option value="" disabled selected class="text-gray-800 bg-white">Select Menu</option>
+                            <option *ngFor="let item of menu" [value]="item.id" class="text-gray-800 bg-white">{{
+                                item.name }}</option>
                         </select>
                         <label class="form-label">Select
                             Menu <span *ngIf="f['menu'].invalid || f['menu'].errors?.['required']"
@@ -30,10 +30,10 @@
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
                         <select formControlName="category" class="peer form-select px-2">
-                            <option value="" disabled selected class="text-gray-300 bg-gray-900">Select Category
+                            <option value="" disabled selected class="text-gray-800 bg-white">Select Category
                             </option>
-                            <option *ngFor="let item of categories" [value]="item.id"
-                                class="text-white bg-gray-800 hover:bg-gray-700">{{ item.name }}</option>
+                            <option *ngFor="let item of categories" [value]="item.id" class="text-gray-800 bg-white">{{
+                                item.name }}</option>
                         </select>
                         <label class="form-label">Select
                             Category <span *ngIf="f['category'].invalid || f['category'].errors?.['required']"

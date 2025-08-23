@@ -1,3 +1,11 @@
+nz-input-group {
+    border: 1px solid #d9d9d9;
+
+    input {
+        color: black !important;
+    }
+}
+
 @media (max-width: 768px) {
     .category-container {
         padding: 1rem;

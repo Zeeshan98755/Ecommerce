@@ -5,27 +5,28 @@
     .product-image {
         width: 100%;
         display: block;
+        background-color: white;
     }
 
     .zoom-lens {
         position: absolute;
         width: 200px;
         height: 200px;
-        border: 1px solid;
+        border: 1px solid #1e88e5;
         border-radius: 50%;
         background-repeat: no-repeat;
         background-size: 800px;
         pointer-events: none;
         display: none;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3);
     }
 }
 
 .carousel-inner {
     display: flex;
     transition: transform 0.5s ease-in-out;
-}
 
-.carousel-inner div {
-    min-width: 100%;
+    div {
+        min-width: 100%;
+    }
 }

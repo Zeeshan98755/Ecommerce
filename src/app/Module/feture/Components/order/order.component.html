@@ -1,14 +1,14 @@
-<div class="py-20 text-white px-5 lg:px-20">
-    <h1 class="text-lg font-bold text-center py-10 text-white">My Orders</h1>
+<div class="py-20 px-5 lg:px-20 text-gray-900">
+    <h1 class="text-lg font-bold text-center py-10">My Orders</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div class="col-span-1">
-            <div class="space-y-3">
+            <div class="space-y-3 bg-white shadow-md rounded-lg p-4">
                 <div *ngFor="let option of orderFilter" class="flex items-center space-x-2">
                     <mat-checkbox [checked]="selectedFilters.includes(option.value)"
                         (change)="toggleFilter(option.value, $event.checked)">
                     </mat-checkbox>
-                    <span class="text-sm text-gray-500">{{ option.label }}</span>
+                    <span class="text-sm text-gray-700">{{ option.label }}</span>
                 </div>
             </div>
         </div>
@@ -19,7 +19,8 @@
                     <div *ngFor="let item of order.items" class="cursor-pointer"
                         (click)="navigateToOrderDetails(order.parentOrder.id)">
                         <app-order-card [orderItem]="item" [order]="order.parentOrder"
-                            [highlightStatus]="isStatusHighlighted(order.parentOrder.status)"></app-order-card>
+                            [highlightStatus]="isStatusHighlighted(order.parentOrder.status)">
+                        </app-order-card>
                     </div>
                     <mat-divider *ngIf="!last"></mat-divider>
                 </div>
@@ -27,33 +28,30 @@
 
             <ng-template #noOrders>
                 <div class="flex flex-col items-center justify-center py-20 text-center">
-                    <i class="fas fa-box-open text-gray-500 text-7xl animate-bounce"></i>
-                    <p class="mt-2 text-2xl font-semibold text-gray-300">No orders found.</p>
+                    <i class="fas fa-box-open text-gray-400 text-7xl animate-bounce"></i>
+                    <p class="mt-2 text-2xl font-semibold text-gray-700">No orders found.</p>
                     <p class="text-sm text-gray-500">It looks like you haven't placed any orders yet.</p>
                     <button routerLink="/products"
-                        class="mt-6 px-6 py-2 rounded-lg bg-gradient-to-r from-[#69F0AE] via-emerald-400 to-green-500 
-                        text-gray-900 font-semibold text-sm shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300">
+                        class="mt-6 !px-6 !py-2 btn-primary">
                         Start Shopping
                     </button>
                 </div>
             </ng-template>
 
+            <!-- Pagination -->
             <div *ngIf="orders.length > 0" class="flex justify-center mt-6 w-full">
-                <!-- Pagination -->
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
-
-                    <!-- Total Items Info -->
-                    <div class="text-sm text-gray-400">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4 w-full">
+                    <div class="text-sm text-gray-600">
                         Showing
-                        <span class="text-[#69F0AE] font-semibold">
+                        <span class="text-[#1e88e5] font-semibold">
                             {{ (currentPage - 1) * pageSize + 1 }}
                         </span>
                         to
-                        <span class="text-[#69F0AE] font-semibold">
+                        <span class="text-[#1e88e5] font-semibold">
                             {{ Math.min(currentPage * pageSize, totalProducts) }}
                         </span>
                         of
-                        <span class="text-[#69F0AE] font-semibold">
+                        <span class="text-[#1e88e5] font-semibold">
                             {{ totalProducts }}
                         </span>
                         items
@@ -69,8 +67,9 @@
                             </li>
                             <ng-container *ngFor="let page of getPageRange(); let i = index">
                                 <li>
-                                    <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
-                                        [class.text-black]="currentPage === page" class="number-count">
+                                    <button (click)="onPageChange(page)"
+                                        [ngClass]="{'bg-[#1e88e5] text-black': currentPage === page, 'text-gray-700': currentPage !== page}"
+                                        class="number-count">
                                         {{ page }}
                                     </button>
                                 </li>

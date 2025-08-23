@@ -3,7 +3,7 @@
 }
 
 .form-label {
-  @apply absolute left-3 top-6 text-gray-400 transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#69F0AE] peer-[&:not(:placeholder-shown)]:scale-75 peer-[&:not(:placeholder-shown)]:-translate-y-4;
+  @apply absolute left-3 top-6 text-gray-400 transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#1976d2] peer-[&:not(:placeholder-shown)]:scale-75 peer-[&:not(:placeholder-shown)]:-translate-y-4;
 }
 
 .error-text {

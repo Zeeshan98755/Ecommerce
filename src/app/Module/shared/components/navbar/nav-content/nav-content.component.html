@@ -1,69 +1,73 @@
 <div class="w-full">
-    <div class="hidden lg:grid grid-cols-5 gap-6 bg-gray-950 text-white w-full h-1/2 shadow-lg ">
+    <div class="hidden lg:grid grid-cols-5 gap-6 bg-white text-gray-700 w-full h-1/2 shadow-lg p-6 rounded-md">
         <div class="flex flex-col items-center" *ngFor="let category of categories">
-            <h1 class="text-center font-semibold text-white mb-3">{{ category.name }}</h1>
-            <button class="hover:bg-gray-900 hover:!text-[#69f0ae] rounded-md py-2 w-32"
+            <h1 class="text-center font-semibold text-lg mb-3 text-[#1e88e5]">{{ category.name }}</h1>
+            <button class="hover:bg-[#e3f2fd] hover:text-[#1e88e5] rounded-md py-2 w-32 transition-colors"
                 *ngFor="let subcategory of subcategories[category.id]" (click)="fetchProducts(subcategory.id)">
-                {{ subcategory.name }}</button>
+                {{ subcategory.name }}
+            </button>
         </div>
 
         <div class="flex flex-col items-center">
-            <h1 class="text-center font-semibold text-white mb-3">Brands</h1>
-            <button class="hover:bg-gray-900 hover:!text-[#69f0ae] rounded-md py-2 w-32" *ngFor="let brand of brands"
-                (click)="fetchProducts(undefined, brand.id)">
-                {{ brand.name }}</button>
+            <h1 class="text-center font-semibold text-lg mb-3 text-[#1e88e5]">Brands</h1>
+            <button class="hover:bg-[#e3f2fd] hover:text-[#1e88e5] rounded-md py-2 w-32 transition-colors"
+                *ngFor="let brand of brands" (click)="fetchProducts(undefined, brand.id)">
+                {{ brand.name }}
+            </button>
         </div>
 
         <div class="hidden lg:block">
             <div class="mb-5">
-                <img class="w-[19rem] h-[20rem] object-cover object-top rounded-md"
+                <img class="w-[19rem] h-[20rem] object-cover object-top rounded-md shadow-md"
                     src="https://cdn.shopify.com/s/files/1/0049/3649/9315/products/koskii-yellow-printed-semicrepe-designer-readymadelehenga-gcrm0029461_yellow_1_1800x1800.jpg?v=1682068296"
                     alt="">
             </div>
-            <p class="text-white">New Arrival</p>
+            <p class="text-[#1e88e5] text-center font-medium">New Arrival</p>
         </div>
         <div class="hidden lg:block">
             <div class="mb-5">
-                <img class="w-[19rem] h-[20rem] object-cover object-top rounded-md"
+                <img class="w-[19rem] h-[20rem] object-cover object-top rounded-md shadow-md"
                     src="https://cdn.shopify.com/s/files/1/0049/3649/9315/products/koskii-lemonyellow-threadwork-georgette-designer-readymadelehenga-gcrm0029810_lemon_yellow_1_1800x1800.jpg?v=1681290976"
                     alt="">
             </div>
-            <p class="text-white">New Arrival</p>
+            <p class="text-[#1e88e5] text-center font-medium">New Arrival</p>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:hidden">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:hidden bg-white text-gray-700 p-6 rounded-md shadow-md">
         <div class="flex flex-col items-center" *ngFor="let category of categories">
-            <h1 class="text-center font-semibold text-white mb-3">{{ category.name }}</h1>
-            <button class="hover:bg-gray-900 hover:text-[#69f0ae] rounded-md py-2 w-full"
+            <h1 class="text-center font-semibold text-lg mb-3 text-[#1e88e5]">{{ category.name }}</h1>
+            <button class="hover:bg-[#e3f2fd] hover:text-[#1e88e5] rounded-md py-2 w-full transition-colors"
                 *ngFor="let subcategory of subcategories[category.id]" (click)="fetchProducts(subcategory.id)">
-                {{ subcategory.name }}</button>
+                {{ subcategory.name }}
+            </button>
         </div>
 
         <div class="flex flex-col items-center">
-            <h1 class="text-center font-semibold text-white mb-3">Brands</h1>
-            <button class="hover:bg-gray-900 hover:text-[#69f0ae] rounded-md py-2 w-full" *ngFor="let brand of brands"
-                (click)="fetchProducts(undefined, brand.id)">
-                {{ brand.name }}</button>
+            <h1 class="text-center font-semibold text-lg mb-3 text-[#1e88e5]">Brands</h1>
+            <button class="hover:bg-[#e3f2fd] hover:text-[#1e88e5] rounded-md py-2 w-full transition-colors"
+                *ngFor="let brand of brands" (click)="fetchProducts(undefined, brand.id)">
+                {{ brand.name }}
+            </button>
         </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 lg:hidden items-center">
-        <div class="w-full lg:block flex flex-col items-center">
+        <div class="w-full flex flex-col items-center">
             <div class="mb-5">
-                <img class="w-[19rem] h-[20rem] object-cover object-top rounded-md"
+                <img class="w-[19rem] h-[20rem] object-cover object-top rounded-md shadow-md"
                     src="https://www.ethnicplus.in/media/catalog/product/cache/1d5df636cf8c8988ea2d2c570bb7c21d/a/a/aayaa_1900002.jpg"
                     alt="">
             </div>
-            <p class="text-white">New Arrival</p>
+            <p class="text-[#1e88e5] text-center font-medium">New Arrival</p>
         </div>
-        <div class="w-full lg:block flex flex-col items-center">
+        <div class="w-full flex flex-col items-center">
             <div class="mb-5">
-                <img class="w-[19rem] h-[20rem] object-cover object-top rounded-md"
+                <img class="w-[19rem] h-[20rem] object-cover object-top rounded-md shadow-md"
                     src="https://www.ethnicplus.in/media/catalog/product/cache/1d5df636cf8c8988ea2d2c570bb7c21d/r/a/ram-076-pnk_6_.jpg"
                     alt="">
             </div>
-            <p class="text-white">New Arrival</p>
+            <p class="text-[#1e88e5] text-center font-medium">New Arrival</p>
         </div>
     </div>
 </div>

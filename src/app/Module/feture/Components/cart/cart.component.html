@@ -1,7 +1,7 @@
-<main class="mt-10">
+<main class="mt-10 bg-white text-gray-800">
     <div class="py-10 lg:grid grid-cols-3 lg:px-16 relative">
         <section class="lg:col-span-2 lg:px-5">
-            <div class="box p-5 space-y-3">
+            <div class="box p-5 space-y-3 bg-white rounded-lg shadow-md border border-gray-200">
                 <ng-container *ngIf="cart.length > 0; else emptyCart">
                     <div *ngFor="let product of paginatedcart; let i = index; let last = last">
                         <app-cart-item [cartItem]="product" [index]="i"
@@ -10,18 +10,16 @@
                     </div>
                 </ng-container>
                 <ng-template #emptyCart>
-                    <div class="flex flex-col items-center justify-center text-gray-400 py-10">
-                        <svg class="w-28 h-28 !text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                    <div class="flex flex-col items-center justify-center text-gray-500 py-10">
+                        <svg class="w-28 h-28 text-gray-400" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512">
                             <path
-                                d="M351.9 329.506H206.81l-3.072-12.56H368.16l26.63-116.019-217.23-26.04-9.952-58.09h-50.4v21.946h31.894l35.233 191.246a32.927 32.927 0 1 0 36.363 21.462h100.244a32.825 32.825 0 1 0 30.957-21.945zM181.427 197.45l186.51 22.358-17.258 75.195H198.917z"
-                                data-name="Shopping Cart" />
+                                d="M351.9 329.506H206.81l-3.072-12.56H368.16l26.63-116.019-217.23-26.04-9.952-58.09h-50.4v21.946h31.894l35.233 191.246a32.927 32.927 0 1 0 36.363 21.462h100.244a32.825 32.825 0 1 0 30.957-21.945zM181.427 197.45l186.51 22.358-17.258 75.195H198.917z" />
                         </svg>
                         <p class="text-lg">Your cart is empty</p>
-                        <p class="text-sm text-gray-500">Add items to continue shopping.</p>
+                        <p class="text-sm text-gray-400">Add items to continue shopping.</p>
                         <a routerLink="/"
-                            class="mt-6 !px-6 !py-2 rounded-lg !bg-gradient-to-r !from-[#69F0AE] !via-emerald-400 !to-green-500 
-                            !text-gray-900 !font-semibold !text-sm !shadow-md hover:!shadow-lg hover:!scale-105 transition-all duration-300">
+                            class="mt-6 !px-6 !py-2 btn-primary">
                             Start Shopping
                         </a>
                     </div>
@@ -32,17 +30,17 @@
                     class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
 
                     <!-- Total Items Info -->
-                    <div class="text-sm text-gray-400">
+                    <div class="text-sm text-gray-500">
                         Showing
-                        <span class="text-[#69F0AE] font-semibold">
+                        <span class="text-[#1e88e5] font-semibold">
                             {{ (currentPage - 1) * pageSize + 1 }}
                         </span>
                         to
-                        <span class="text-[#69F0AE] font-semibold">
+                        <span class="text-[#1e88e5] font-semibold">
                             {{ Math.min(currentPage * pageSize, cart.length) }}
                         </span>
                         of
-                        <span class="text-[#69F0AE] font-semibold">
+                        <span class="text-[#1e88e5] font-semibold">
                             {{ cart.length }}
                         </span>
                         items
@@ -58,7 +56,7 @@
                             </li>
                             <ng-container *ngFor="let page of getPageRange(); let i = index">
                                 <li>
-                                    <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                    <button (click)="onPageChange(page)" [class.bg-[#1e88e5]]="currentPage === page"
                                         [class.text-black]="currentPage === page" class="number-count">
                                         {{ page }}
                                     </button>
@@ -78,38 +76,36 @@
 
         <section class="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0">
             <ng-container *ngIf="cart.length > 0">
-                <div class="box p-5 rounded-md">
-                    <p class="font-bold text-gray-500 pb-4">PRICE DETAILS</p>
+                <div class="box p-5 rounded-lg bg-white shadow-md border border-gray-200">
+                    <p class="font-bold text-gray-700 pb-4">PRICE DETAILS</p>
                     <mat-divider></mat-divider>
-                    <div class="space-y-3">
+                    <div class="space-y-3 text-sm">
                         <div class="flex justify-between pt-3">
                             <span>Total Price</span>
                             <span>₹{{ getTotalPrice() }}</span>
                         </div>
                         <div class="flex justify-between pt-3">
                             <span>Discount</span>
-                            <span class="text-green-700">-₹{{ getTotalDiscount() }}</span>
+                            <span class="text-[#1976d2]">-₹{{ getTotalDiscount() }}</span>
                         </div>
                         <div class="flex justify-between pt-3">
                             <span>Delivery Charges</span>
-                            <span class="text-green-600">Free</span>
+                            <span class="text-[#1976d2]">Free</span>
                         </div>
                         <div class="flex justify-between font-semibold text-lg">
                             <span>Total Amount</span>
-                            <span class="text-green-600">₹{{ getFinalAmount() }}</span>
+                            <span class="text-[#1e88e5]">₹{{ getFinalAmount() }}</span>
                         </div>
                     </div>
 
                     <div class="mt-8 space-y-3">
-                        <button (click)="navigateToCheckout()" class="text-lg w-full border border-[#69F0AE] py-2 rounded-md 
-                        bg-gradient-to-r from-[#69F0AE] via-emerald-400 to-green-500 text-gray-900 font-semibold shadow-md
-                        hover:shadow-lg hover:scale-105 transition-all duration-300">
+                        <button (click)="navigateToCheckout()"
+                            class="text-lg !w-full !py-2 btn-primary">
                             CHECKOUT
                         </button>
 
-                        <button routerLink="/" class="text-lg w-full border border-[#69F0AE] py-2 rounded-md 
-                            bg-gradient-to-r from-[#69F0AE] via-emerald-400 to-green-500 text-gray-900 font-semibold shadow-md
-                            hover:shadow-lg hover:scale-105 transition-all duration-300">
+                        <button routerLink="/"
+                            class="text-lg !w-full !py-2 btn-primary">
                             CONTINUE SHOPPING
                         </button>
                     </div>

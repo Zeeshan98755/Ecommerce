@@ -1,28 +1,29 @@
-<div *ngIf="product" class="productCard w-full transition-all rounded-lg">
+<div *ngIf="product" class="productCard w-full transition-all rounded-lg bg-white border border-gray-200">
     <div (click)="navigate()" class="h-[20rem] cursor-pointer">
         <a [routerLink]="['/product_details', product.id]">
-            <img class="w-full h-full object-contain !rounded-t-lg" [src]="product.image" alt="">
+            <img class="w-full h-full object-contain rounded-t-lg" [src]="product.image" alt="">
         </a>
     </div>
-    <div class="textPart p-3 bg-[#0b0b0b]">
+    <div class="textPart p-3 bg-white">
         <div>
-            <p class="truncate text-white">{{product.title}}</p>
-            <p class="text-white font-semibold">{{product.color}}</p>
+            <p class="truncate text-gray-900 font-medium">{{product.title}}</p>
+            <p class="text-gray-600">{{product.color}}</p>
         </div>
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center mt-2">
             <div class="flex flex-wrap space-x-2 items-center">
-                <p class="font-bold text-white">₹{{product.disprice}}</p>
-                <p class="text-gray-600 line-through">₹{{product.price}}</p>
-                <p class="text-[#69f0ae] font-semibold">{{product.dispercent}}%</p>
+                <p class="font-bold text-gray-900">₹{{product.disprice}}</p>
+                <p class="text-gray-400 line-through">₹{{product.price}}</p>
+                <p class="text-[#1e88e5] font-semibold">{{product.dispercent}}%</p>
             </div>
             <div class="relative cursor-pointer">
-                <mat-icon *ngIf="isWishlistPage()" class="text-2xl text-[#69f0ae]">
+                <mat-icon *ngIf="isWishlistPage()" (click)="handleAddToCart()" class="text-2xl text-[#1e88e5]">
                     shopping_cart
                 </mat-icon>
 
-                <i *ngIf="!isWishlistPage()"
-                    [ngClass]="isWishlisted() ? 'fa-solid fa-heart text-2xl text-[#69f0ae]' : 'fa-regular fa-heart text-2xl text-[#69f0ae]'"
-                    class="relative z-10" (click)="toggleWishlist(product, $event)">
+                <i *ngIf="!isWishlistPage()" [ngClass]="isWishlisted() 
+                        ? 'fa-solid fa-heart text-2xl text-[#1e88e5]' 
+                        : 'fa-regular fa-heart text-2xl text-gray-400 hover:text-[#1e88e5]'" class="relative z-10"
+                    (click)="toggleWishlist(product, $event)">
                 </i>
 
                 <i *ngIf="isWishlistPage()" class="fa-solid fa-trash text-red-500 text-2xl ml-2 cursor-pointer"
@@ -30,10 +31,9 @@
                 </i>
 
                 <span *ngIf="product.showRipple"
-                    class="absolute inset-0 rounded-full bg-[#69f0ae] opacity-50 animate-ripple">
+                    class="absolute inset-0 rounded-full bg-[#1e88e5] opacity-40 animate-ripple">
                 </span>
             </div>
-
         </div>
     </div>
 </div>

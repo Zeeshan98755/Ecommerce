@@ -1,11 +1,12 @@
-<div class="p-3 bg-black min-h-screen text-white">
+<div class="p-3 bg-white min-h-screen text-gray-900">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
         <div
-            class="bg-gray-900 p-4 rounded-lg h-fit w-full shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
-            <h2 class="text-lg font-semibold mb-4 text-white">RECENTLY ADDED PRODUCTS</h2>
+            class="bg-white p-4 rounded-lg h-fit w-full shadow-xl border border-gray-200 hover:border-[#1976d2] hover:shadow-[0_0_12px_#1976d250] transition-all duration-300">
+            <h2 class="text-lg font-semibold mb-4 text-gray-800">RECENTLY ADDED PRODUCTS</h2>
             <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                    <thead class="bg-gray-800">
+                <table class="w-full text-sm text-left border border-gray-200 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-100 text-gray-700">
                         <tr>
                             <th class="px-4 py-2">Image</th>
                             <th class="px-4 py-2">Title</th>
@@ -14,14 +15,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b border-gray-700" *ngFor="let product of products let last=last"
-                            [ngClass]="{'border-b-0': last}">
+                        <tr class="border-b border-gray-200 hover:bg-gray-50"
+                            *ngFor="let product of products; let last=last" [ngClass]="{'border-b-0': last}">
                             <td class="px-4 py-2">
-                                <img [src]="product.image" class="w-10 h-10 rounded-full object-cover" />
+                                <img [src]="product.image"
+                                    class="w-10 h-10 rounded-full object-cover border border-gray-300" />
                             </td>
                             <td class="px-4 py-2">{{ product.title }}</td>
-                            <td class="px-4 py-2">₹{{ product.disprice }}</td>
-                            <td class="px-4 py-2">₹{{ product.price }}</td>
+                            <td class="px-4 py-2 text-[#1976d2]">₹{{ product.disprice }}</td>
+                            <td class="px-4 py-2 text-gray-700 line-through">₹{{ product.price }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -29,11 +31,11 @@
         </div>
 
         <div
-            class="bg-gray-900 p-4 rounded-lg h-fit w-full shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
-            <h2 class="text-lg font-semibold mb-4 text-white">All CUSTOMERS</h2>
+            class="bg-white p-4 rounded-lg h-fit w-full shadow-md border border-gray-200 hover:border-[#1976d2] hover:shadow-[0_0_12px_#1976d250] transition-all duration-300">
+            <h2 class="text-lg font-semibold mb-4 text-gray-800">ALL CUSTOMERS</h2>
             <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                    <thead class="bg-gray-800">
+                <table class="w-full text-sm text-left border border-gray-200 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-100 text-gray-700">
                         <tr>
                             <th class="px-4 py-2">Id</th>
                             <th class="px-4 py-2">Image</th>
@@ -43,18 +45,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b border-gray-700"
+                        <tr class="border-b border-gray-200 hover:bg-gray-50"
                             *ngFor="let customer of customers; let i = index; let last=last"
                             [ngClass]="{'border-b-0': last}">
                             <td class="px-4 py-2">{{ i + 1 }}</td>
                             <td class="px-4 py-2">
                                 <div
-                                    class="w-10 h-10 flex items-center justify-center rounded-full text-white overflow-hidden">
+                                    class="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden border border-gray-300">
                                     <img *ngIf="customer.image; else noImage" [src]="customer.image" alt="Avatar"
                                         class="w-full h-full object-cover rounded-full" />
                                     <ng-template #noImage>
                                         <div [ngClass]="customer.avatarColor"
-                                            class="w-full h-full flex items-center justify-center">
+                                            class="w-full h-full flex items-center justify-center text-gray-700 font-semibold">
                                             {{ customer.initial }}
                                         </div>
                                     </ng-template>
@@ -62,7 +64,7 @@
                             </td>
                             <td class="px-4 py-2">{{ customer.firstName }}</td>
                             <td class="px-4 py-2">{{ customer.lastName }}</td>
-                            <td class="px-4 py-2">{{ customer.email }}</td>
+                            <td class="px-4 py-2 text-gray-600">{{ customer.email }}</td>
                         </tr>
                     </tbody>
                 </table>

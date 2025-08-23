@@ -7,7 +7,7 @@
 }
 
 .form-label {
-  @apply absolute left-0 top-4 text-gray-400 transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE] peer-[&:not(:placeholder-shown)]:scale-75 peer-[&:not(:placeholder-shown)]:-translate-y-6;
+  @apply absolute left-0 top-4 text-gray-400 transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#1976d2] peer-[&:not(:placeholder-shown)]:scale-75 peer-[&:not(:placeholder-shown)]:-translate-y-6;
 }
 
 .error-text {
@@ -15,5 +15,5 @@
 }
 
 .btn-primary {
-  @apply mt-6 w-full border border-[#69f0ae] bg-[#69f0ae] text-black font-bold p-3 rounded-lg shadow-lg hover:bg-transparent hover:text-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300;
+  @apply mt-6 w-full border border-[#1976d2] bg-[#1976d2] text-black font-bold p-3 rounded-lg shadow-lg hover:bg-transparent hover:text-[#1976d2] hover:shadow-[0_0_12px_#1976d250] transition-all duration-300;
 }/*# sourceMappingURL=address-form.component.css.map */

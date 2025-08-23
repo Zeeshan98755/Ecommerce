@@ -1,7 +1,7 @@
-<div class="min-h-screen bg-black flex items-center justify-center px-4 py-6">
+<div class="min-h-screen bg-white flex items-center justify-center px-4 py-6">
     <form [formGroup]="menuForm" (ngSubmit)="onSubmit()"
-        class="glass-card w-full max-w-3xl bg-gray-900/50 backdrop-blur-md p-6 rounded-lg shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
-        <h2 class="text-xl font-semibold text-[#69f0ae] text-center mb-6">
+        class="glass-card w-full max-w-3xl bg-white text-gray-800 backdrop-blur-md p-6 rounded-lg shadow-2xl border border-gray-200 hover:border-[#1976d2] hover:shadow-[0_0_12px_#1976d250] transition-all duration-300">
+        <h2 class="text-xl font-semibold text-[#1976d2] text-center mb-6">
             {{ editMode ? 'Edit Menu' : 'Add New Menu' }}
         </h2>
 
@@ -17,7 +17,9 @@
                         </label>
                         <div class="mt-2">
                             <p *ngIf="(submitted || f['name'].touched) && f['name'].errors?.['required']"
-                                class="error-text">This field is required</p>
+                                class="error-text">
+                                This field is required
+                            </p>
                         </div>
                     </nz-form-control>
                 </nz-form-item>

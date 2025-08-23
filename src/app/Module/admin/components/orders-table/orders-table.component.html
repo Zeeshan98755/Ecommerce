@@ -1,55 +1,57 @@
-<div class="p-6 bg-black min-h-screen text-white">
+<div class="p-6 bg-white min-h-screen text-gray-900 overflow-x-hidden">
     <div
-        class="bg-gray-900 p-4 rounded-lg h-fit w-full shadow-2xl border border-gray-800 hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300">
+        class="bg-white p-4 rounded-lg w-full shadow-xl border border-gray-200 hover:border-[#1976d2] hover:shadow-[0_0_12px_#1976d250] transition-all duration-300">
+
+        <!-- Header + Search -->
         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-            <h2 class="text-lg font-semibold mb-4 uppercase text-white">ALL ORDERS</h2>
+            <h2 class="text-lg font-semibold mb-4 uppercase text-gray-800">ALL ORDERS</h2>
 
             <div class="relative w-full sm:max-w-md mb-4 flex gap-1 md:gap-0 justify-evenly">
                 <nz-input-group [nzSuffix]="suffixIconSearch" class="relative w-full max-w-md mb-4">
                     <input type="text" nz-input [(ngModel)]="searchTerm" (input)="filterOrdersById()"
-                        placeholder="Search orders..." class="w-full bg-[#1e1e1e] border border-gray-600 text-white rounded-full px-4 py-2 
-                             focus:ring-[#69f0ae] focus:border-[#69f0ae] focus:ring-2 transition-all duration-300 
-                             placeholder-gray-400 shadow-lg focus:shadow-[0_0_15px_#69f0ae]" />
+                        placeholder="Search orders..."
+                        class="w-full rounded-full px-4 py-2 focus:ring-[#1976d2] focus:border-[#1976d2] focus:ring-2 transition-all duration-300 placeholder-gray-400 focus:shadow-[0_0_15px_#69f0ae]" />
                 </nz-input-group>
                 <ng-template #suffixIconSearch>
-                    <span nz-icon nzType="search" class="text-[#69f0ae]"></span>
+                    <span nz-icon nzType="search" class="text-[#1976d2]"></span>
                 </ng-template>
 
                 <div>
                     <span *ngIf="searchTerm"
-                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#69f0ae] text-sm">
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#1976d2] text-sm">
                         {{ filteredCount }} found
                     </span>
                 </div>
             </div>
-
         </div>
+
+        <!-- Table -->
         <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left min-w-[600px]">
+            <table class="w-full text-sm text-left min-w-[600px] border border-gray-200 rounded-lg">
                 <thead>
-                    <tr class="border-b">
-                        <th class="p-3 text-left">Id</th>
-                        <th class="p-3 text-left">User Name</th>
-                        <th class="p-3 text-left">Total Amount</th>
-                        <th class="p-3 text-left">Status</th>
-                        <th class="p-3 text-left">Update</th>
-                        <th class="p-3 text-left">Actions</th>
+                    <tr class="border-b bg-gray-100 text-gray-700">
+                        <th class="p-3">Id</th>
+                        <th class="p-3">User Name</th>
+                        <th class="p-3">Total Amount</th>
+                        <th class="p-3">Status</th>
+                        <th class="p-3">Update</th>
+                        <th class="p-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-b border-gray-700"
-                        *ngFor="let order of paginatedorder; let i = index let last=last"
-                        [ngClass]="{'border-b-0': last}">
+                    <tr class="border-b border-gray-200 hover:bg-gray-50 transition"
+                        *ngFor="let order of paginatedorder; let i = index; let last=last"
+                        [ngClass]="{'!border-b-0': last}">
                         <td class="p-3">{{ startIndex + i + 1 }}</td>
                         <td class="p-3">{{ order.userName }}</td>
                         <td class="p-3 font-semibold">₹{{ order.totalAmount }}</td>
                         <td class="p-3">
-                            <span class="p-2 text-white rounded-full" [ngClass]="{
-                                    'bg-red-500': order.status === 'CANCELLED',
-                                    'bg-yellow-500': order.status === 'PENDING',
-                                    'bg-orange-500': order.status === 'CONFIRMED',
-                                    'bg-blue-500': order.status === 'SHIPPED',
-                                    'bg-green-500': order.status === 'DELIVERED'
+                            <span class="p-2 text-xs sm:text-sm text-dark rounded-full font-medium shadow-md" [ngClass]="{
+                                'bg-red-500': order.status === 'CANCELLED',
+                                'bg-yellow-500': order.status === 'PENDING',
+                                'bg-orange-500': order.status === 'CONFIRMED',
+                                'bg-blue-500': order.status === 'SHIPPED',
+                                'bg-green-500': order.status === 'DELIVERED'
                                 }">
                                 {{ order.status }}
                             </span>
@@ -57,20 +59,20 @@
                         <td class="p-3">
                             <select [(ngModel)]="order.status" (change)="updateStatus(i, order.status)"
                                 [disabled]="order.status === 'CANCELLED'"
-                                class="p-1 border border-[#69f0ae] bg-[#69f0ae] hover:bg-transparent hover:text-[#69f0ae] text-black rounded-md cursor-pointer disabled:cursor-not-allowed disabled:bg-[#69f0ae] disabled:text-black shadow-2xl hover:border-[#69f0ae] hover:shadow-[0_0_15px_#69F0AE] transition-all duration-300 disabled:hover:shadow-none"
-                                [ngClass]="{'cursor-not-allowed': order.status === 'CANCELLED'}">
+                                class="p-1 border border-[#1976d2] bg-[#1976d2] text-black rounded-md cursor-pointer disabled:cursor-not-allowed disabled:bg-[#69f0ae] disabled:text-black shadow-md hover:bg-white hover:text-[#1976d2] hover:shadow-[0_0_10px_#69f0ae] transition">
                                 <option value="PENDING">PENDING</option>
                                 <option value="CONFIRMED">CONFIRMED</option>
                                 <option value="SHIPPED">SHIPPED</option>
                                 <option value="DELIVERED">DELIVERED</option>
                             </select>
                         </td>
-                        <td class="p-3 flex gap-1">
-                            <button (click)="openOrderDetails(order)" class="action-icon">
+                        <td class="p-3 flex gap-2">
+                            <button (click)="openOrderDetails(order)"
+                                class="action-icon text-[#1976d2] hover:text-[#1565c0]">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                             <button *ngIf="order.status !== 'CANCELLED'" (click)="deleteOrder(i, order.id)"
-                                class="action-icon">
+                                class="action-icon text-red-500 hover:text-red-600">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
@@ -79,20 +81,19 @@
             </table>
 
             <!-- Pagination -->
-            <div *ngIf="orders.length > 0" class="flex justify-center mt-6 w-full overflow-x-auto">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
-
-                    <div class="text-sm text-gray-400">
+            <div *ngIf="orders.length > 0" class="flex justify-center w-full overflow-x-auto">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4 w-full">
+                    <div class="text-sm text-gray-600">
                         Showing
-                        <span class="text-[#69F0AE] font-semibold">
+                        <span class="text-[#1976d2] font-semibold">
                             {{ (currentPage - 1) * pageSize + 1 }}
                         </span>
                         to
-                        <span class="text-[#69F0AE] font-semibold">
+                        <span class="text-[#1976d2] font-semibold">
                             {{ Math.min(currentPage * pageSize, orders.length) }}
                         </span>
                         of
-                        <span class="text-[#69F0AE] font-semibold">
+                        <span class="text-[#1976d2] font-semibold">
                             {{ orders.length }}
                         </span>
                         items
@@ -108,7 +109,7 @@
                             </li>
                             <ng-container *ngFor="let page of getPageRange(); let i = index">
                                 <li>
-                                    <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                    <button (click)="onPageChange(page)" [class.bg-[#1976d2]]="currentPage === page"
                                         [class.text-black]="currentPage === page" class="number-count">
                                         {{ page }}
                                     </button>
@@ -126,41 +127,43 @@
             </div>
         </div>
 
+        <!-- Modal -->
         <nz-modal [(nzVisible)]="isOrderModalVisible" [nzFooter]="null" [nzTitle]="'Order Details'"
             (nzOnCancel)="handleCancel()" [nzWidth]="'90%'"
             [nzBodyStyle]="{ 'max-height': '80vh', 'overflow-y': 'auto', 'padding': '1.25rem' }" nzCentered
             nzWrapClassName="custom-order-modal">
             <ng-container *nzModalContent>
                 <div class="mt-4">
-                    <h4 class="font-semibold text-gray-300">Order ID: {{ selectedOrder?.id }}</h4>
-                    <p class="text-gray-400">Total Amount: ₹{{ selectedOrder?.totalAmount }}</p>
-                    <p class="text-gray-400">Status: {{ selectedOrder?.status }}</p>
+                    <h4 class="font-semibold text-gray-800">Order ID: {{ selectedOrder?.id }}</h4>
+                    <p class="text-gray-700">Total Amount: ₹{{ selectedOrder?.totalAmount }}</p>
+                    <p class="text-gray-700">Status: {{ selectedOrder?.status }}</p>
                 </div>
 
-                <h4 class="font-semibold mt-4 text-gray-300">Items</h4>
+                <h4 class="font-semibold mt-4 text-gray-800">Items</h4>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left border border-gray-700">
+                    <table class="w-full text-sm text-left border border-gray-200 rounded-lg">
                         <thead>
-                            <tr class="border-b bg-gray-700 text-white">
-                                <th class="p-2 sm:p-3 text-left">Image</th>
-                                <th class="p-2 sm:p-3 text-left">Title</th>
-                                <th class="p-2 sm:p-3 text-left">Color</th>
-                                <th class="p-2 sm:p-3 text-left">Quantity</th>
-                                <th class="p-2 sm:p-3 text-left">Price</th>
-                                <th class="p-2 sm:p-3 text-left">Disc. Price</th>
-                                <th class="p-2 sm:p-3 text-left">Total Price</th>
+                            <tr class="border-b bg-gray-100 text-gray-800">
+                                <th class="p-2 sm:p-3">Image</th>
+                                <th class="p-2 sm:p-3">Title</th>
+                                <th class="p-2 sm:p-3">Color</th>
+                                <th class="p-2 sm:p-3">Quantity</th>
+                                <th class="p-2 sm:p-3">Price</th>
+                                <th class="p-2 sm:p-3">Disc. Price</th>
+                                <th class="p-2 sm:p-3">Total Price</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of selectedOrder?.items"
-                                class="border-b border-gray-700 text-gray-300">
+                                class="border-b border-gray-200 text-gray-700">
                                 <td class="p-2 sm:p-3">
-                                    <img [src]="item.image" alt="Product Image" class="w-10 h-10 rounded" />
+                                    <img [src]="item.image" alt="Product Image"
+                                        class="w-10 h-10 rounded border border-gray-300" />
                                 </td>
                                 <td class="p-2 sm:p-3">{{ item.title }}</td>
                                 <td class="p-2 sm:p-3">
                                     <span
-                                        class="font-bold text-xs sm:text-lg uppercase tracking-wide shadow-md px-3 py-1 rounded-md border"
+                                        class="font-bold text-xs sm:text-sm uppercase tracking-wide px-3 py-1 rounded-md border"
                                         [ngClass]="getColorClass(item.color)">
                                         {{ item.color }}
                                     </span>
@@ -168,9 +171,7 @@
                                 <td class="p-2 sm:p-3">{{ item.quantity }}</td>
                                 <td class="p-2 sm:p-3">₹{{ item.price }}</td>
                                 <td class="p-2 sm:p-3">₹{{ item.disprice }}</td>
-                                <td class="p-2 sm:p-3 font-semibold">
-                                    ₹{{ item.quantity * item.disprice }}
-                                </td>
+                                <td class="p-2 sm:p-3 font-semibold">₹{{ item.quantity * item.disprice }}</td>
                             </tr>
                         </tbody>
                     </table>

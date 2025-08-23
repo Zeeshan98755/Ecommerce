@@ -1,18 +1,18 @@
 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 p-5">
     <div
-        class="relative bg-gradient-to-r from-[#69F0AE] to-[#1C1C1C] text-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-hidden">
+        class="relative bg-gradient-to-r from-[#1e88e5] to-[#1C1C1C] text-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-hidden">
 
         <div
-            class="p-8 overflow-y-auto max-h-[calc(100vh-3rem)] scrollbar-thin scrollbar-thumb-[#69F0AE] scrollbar-track-transparent">
+            class="p-8 overflow-y-auto max-h-[calc(100vh-3rem)] scrollbar-thin scrollbar-thumb-[#1e88e5] scrollbar-track-transparent">
 
             <div class="flex items-start justify-between mb-6">
 
                 <div class="relative w-24 h-24 sm:w-28 sm:h-28">
                     <img *ngIf="imagePreview" [src]="imagePreview" alt="Profile Image"
-                        class="w-full h-full rounded-full object-cover border-4 border-[#69F0AE]" />
+                        class="w-full h-full rounded-full object-cover border-4 border-[#1e88e5]" />
 
                     <div *ngIf="!imagePreview"
-                        class="w-full h-full rounded-full bg-transparent flex items-center justify-center text-white text-sm border-4 border-dashed border-[#69F0AE]">
+                        class="w-full h-full rounded-full bg-transparent flex items-center justify-center text-white text-sm border-4 border-dashed border-[#1e88e5]">
                         Upload Image
                     </div>
 
@@ -20,7 +20,7 @@
                         accept="image/*" />
 
                     <label for="imageInput"
-                        class="absolute bottom-0 right-0 bg-[#69F0AE] p-2 rounded-full cursor-pointer hover:bg-[#4de1a0] transition">
+                        class="absolute bottom-0 right-0 bg-[#1e88e5] p-2 rounded-full cursor-pointer hover:bg-[#1565c0] transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-black" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -40,10 +40,10 @@
             <form [formGroup]="RegisterForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
                 <div class="relative mb-6">
                     <input type="text" formControlName="firstName"
-                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#1e88e5] w-full outline-none pt-4 pb-2 px-0"
                         placeholder="First Name">
                     <label
-                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#1e88e5]">
                         First Name
                         <span *ngIf="f['firstName'].errors?.['required'] && !f['firstName'].value"
                             class="text-red-500">*</span>
@@ -56,10 +56,10 @@
 
                 <div class="relative mb-6">
                     <input type="text" formControlName="lastName"
-                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#1e88e5] w-full outline-none pt-4 pb-2 px-0"
                         placeholder="Last Name">
                     <label
-                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#1e88e5]">
                         Last Name
                         <span *ngIf="f['lastName'].errors?.['required'] && !f['lastName'].value"
                             class="text-red-500">*</span>
@@ -72,10 +72,10 @@
 
                 <div class="relative mb-6">
                     <input type="email" formControlName="email"
-                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#1e88e5] w-full outline-none pt-4 pb-2 px-0"
                         placeholder="Email">
                     <label
-                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#1e88e5]">
                         Email
                         <span *ngIf="f['email'].invalid || f['email'].errors?.['required']"
                             class="text-red-500">*</span>
@@ -93,10 +93,10 @@
 
                 <div class="relative mb-6">
                     <input type="text" formControlName="zipCode"
-                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#1e88e5] w-full outline-none pt-4 pb-2 px-0"
                         placeholder="Zip Code">
                     <label
-                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#1e88e5]">
                         Zip Code <span *ngIf="f['zipCode'].errors?.['required'] && !f['zipCode'].value"
                             class="text-red-500">*</span>
                     </label>
@@ -108,10 +108,10 @@
 
                 <div class="relative mb-6">
                     <input type="text" formControlName="address"
-                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#1e88e5] w-full outline-none pt-4 pb-2 px-0"
                         placeholder="Address">
                     <label
-                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#1e88e5]">
                         Address <span *ngIf="f['address'].errors?.['required'] && !f['address'].value"
                             class="text-red-500">*</span>
                     </label>
@@ -123,10 +123,10 @@
 
                 <div class="relative mb-6">
                     <input type="text" formControlName="city"
-                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#1e88e5] w-full outline-none pt-4 pb-2 px-0"
                         placeholder="City">
                     <label
-                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#1e88e5]">
                         City <span *ngIf="f['city'].errors?.['required'] && !f['city'].value"
                             class="text-red-500">*</span>
                     </label>
@@ -138,10 +138,10 @@
 
                 <div class="relative mb-6">
                     <input type="number" formControlName="mobNumber"
-                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                        class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#1e88e5] w-full outline-none pt-4 pb-2 px-0"
                         placeholder="Mobile Number">
                     <label
-                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                        class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#1e88e5]">
                         Mobile Number <span *ngIf="f['mobNumber'].errors?.['required'] && !f['mobNumber'].value"
                             class="text-red-500">*</span>
                     </label>
@@ -158,10 +158,10 @@
                 <div class="relative mb-6 min-h-[72px]">
                     <div class="relative">
                         <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
-                            class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#69F0AE] w-full outline-none pt-4 pb-2 px-0"
+                            class="peer bg-transparent text-white border-b border-gray-400 placeholder-transparent focus:border-[#1e88e5] w-full outline-none pt-4 pb-2 px-0"
                             placeholder="Password" />
                         <label
-                            class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#69F0AE]">
+                            class="absolute left-0 top-0 text-white transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#1e88e5]">
                             Password
                             <span *ngIf="f['password'].invalid || f['password'].errors?.['required']"
                                 class="text-red-500">*</span>
@@ -169,7 +169,7 @@
 
                         <!-- Toggle Password Button -->
                         <button type="button" (click)="togglePasswordVisibility()"
-                            class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white peer-focus:text-[#69F0AE] focus:outline-none">
+                            class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white peer-focus:text-[#1e88e5] focus:outline-none">
                             <i [class]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
                         </button>
                     </div>
@@ -184,7 +184,7 @@
 
                 <div class="col-span-1 md:col-span-2">
                     <button type="submit"
-                        class="w-full py-3 px-10 border border-[#69F0AE] text-[#69F0AE] rounded-md text-lg hover:bg-[#69F0AE] hover:text-black transition-all duration-200 ease-in-out">
+                        class="w-full py-3 px-10 border border-[#1e88e5] text-[#1e88e5] rounded-md text-lg hover:bg-[#1e88e5] hover:text-white transition-all duration-200 ease-in-out">
                         Register
                     </button>
                 </div>
@@ -192,7 +192,7 @@
 
             <p class="text-sm text-white mt-6 text-center">
                 Already have an account?
-                <button class="text-[#69F0AE] hover:underline uppercase" (click)="openSigninModal()">Login</button>
+                <button class="text-[#1e88e5] hover:underline uppercase" (click)="openSigninModal()">Login</button>
             </p>
         </div>
     </div>

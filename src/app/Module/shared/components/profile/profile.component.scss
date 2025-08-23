@@ -1,9 +1,9 @@
 .form-input {
-    @apply bg-transparent text-white border-0 border-b border-gray-700 focus:border-[#69F0AE] w-full outline-none pt-6 pb-2 px-3 rounded-t-lg transition-all duration-300 focus:ring-0 group-hover:border-[#69F0AE];
+    @apply bg-transparent text-gray-900 border-0 border-b border-gray-300 focus:border-[#1e88e5] w-full outline-none pt-6 pb-2 px-3 rounded-t-lg transition-all duration-300 focus:ring-0 group-hover:border-[#1e88e5];
 }
 
 .form-label {
-    @apply absolute left-3 top-6 text-gray-400 transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#69F0AE] peer-[&:not(:placeholder-shown)]:scale-75 peer-[&:not(:placeholder-shown)]:-translate-y-4;
+    @apply absolute left-3 top-6 text-gray-500 transform transition-all duration-300 origin-top-left peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-[#1e88e5] peer-[&:not(:placeholder-shown)]:scale-75 peer-[&:not(:placeholder-shown)]:-translate-y-4;
 }
 
 .error-text {

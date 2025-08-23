@@ -1,9 +1,9 @@
 ::ng-deep nz-collapse.collapse_data {
-    background-color: black !important;
+    background-color: #ffffff !important;
     border: none !important;
 
     .ant-collapse-item {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
         background-color: transparent !important;
 
         &:last-child {
@@ -13,26 +13,33 @@
         .ant-collapse-header {
             text-transform: uppercase;
             font-weight: 600;
-            color: white !important;
+            color: #111827 !important;
             background-color: transparent !important;
 
             .ant-collapse-arrow svg {
-                color: white !important;
-                fill: white !important;
+                color: #111827 !important;
+                fill: #111827 !important;
+                transition: all 0.3s ease;
             }
 
-            .ant-collapse-header-text {
-                color: white !important;
+            &:hover {
+                color: #1e88e5 !important;
+
+                .ant-collapse-arrow svg {
+                    color: #1e88e5 !important;
+                    fill: #1e88e5 !important;
+                }
             }
         }
 
         .ant-collapse-content {
-            background-color: transparent !important;
+            background-color: #ffffff !important;
 
             .ant-collapse-content-box {
-                background-color: transparent !important;
-                color: white !important;
+                background-color: #ffffff !important;
+                color: #374151 !important;
                 padding: 12px 16px !important;
+                border-left: 2px solid #1e88e5;
             }
         }
     }

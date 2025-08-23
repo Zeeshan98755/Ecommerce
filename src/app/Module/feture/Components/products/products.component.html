@@ -1,20 +1,20 @@
-<div class="flex flex-col items-center">
+<div class="flex flex-col items-center bg-white">
     <main class="px-4 sm:px-6 max-w-7xl pb-10">
         <div class="flex items-baseline justify-between border-gray-200 pb-6 pt-24">
-            <h1 class="text-4xl font-bold text-white">Products</h1>
+            <h1 class="text-4xl font-bold text-gray-900">Products</h1>
             <div class="relative flex items-center">
                 <div>
                     <button mat-button [matMenuTriggerFor]="sortMenu">
-                        sort
+                        Sort
                     </button>
                     <mat-menu #sortMenu="matMenu"
-                        class="absolute z-50 top-2 right-[60px] !bg-[#231E22] !rounded-md text-white w-max">
+                        class="absolute z-50 top-2 right-[60px] !bg-[#1e88e5] !rounded-md text-white w-max">
                         <button (click)="handleSingleSelectFilter('price_high', 'sort')" mat-menu-item
-                            class="w-full text-white hover:!bg-[#322E31]">
+                            class="w-full text-white hover:!bg-[#1565c0]">
                             <div class="p-4 w-full">Price: high-low</div>
                         </button>
                         <button (click)="handleSingleSelectFilter('price_low', 'sort')" mat-menu-item
-                            class="w-full text-white hover:!bg-[#322E31]">
+                            class="w-full text-white hover:!bg-[#1565c0]">
                             <div class="p-4 w-full">Price: low-high</div>
                         </button>
                     </mat-menu>
@@ -27,10 +27,10 @@
                 <!-- Filters Sidebar -->
                 <div class="hidden lg:block">
                     <div class="flex items-center justify-between pb-4 border-b">
-                        <p class="text-lg font-semibold">Filters</p>
+                        <p class="text-lg font-semibold text-gray-900">Filters</p>
                         <div class="flex items-center space-x-4">
                             <button *ngIf="showTopClearButton" (click)="clearFilters()"
-                                class="text-[#69f0ae] hover:text-red-500 transition duration-300"
+                                class="text-[#1e88e5] hover:text-red-500 transition duration-300"
                                 aria-label="Clear Filters">
                                 <i class="fas fa-rotate-left text-lg"></i>
                             </button>
@@ -40,13 +40,13 @@
                     <form>
                         <div *ngFor="let item of filtersData">
                             <div class="py-4">
-                                <span class="font-medium">{{item.name}}</span>
+                                <span class="font-medium text-gray-900">{{item.name}}</span>
                                 <div class="pt-4">
                                     <div *ngFor="let option of item.options" class="flex items-center space-x-2">
                                         <mat-checkbox [name]="item.id" [value]="option.value"
                                             [(ngModel)]="option.selected"
                                             (change)="handleMultipleSelectFilter(option.value, item.id)">
-                                            <span class="text-sm text-gray-500">{{ option.label }}</span>
+                                            <span class="text-sm text-gray-600">{{ option.label }}</span>
                                         </mat-checkbox>
                                     </div>
                                 </div>
@@ -56,13 +56,13 @@
 
                         <div *ngFor="let item of singlefiltersData">
                             <div class="py-4">
-                                <span class="font-medium">{{item.name}}</span>
+                                <span class="font-medium text-gray-900">{{item.name}}</span>
                                 <div class="pt-4">
                                     <div *ngFor="let option of item.options" class="flex items-center space-x-2">
                                         <mat-radio-button [name]="item.id" [value]="option.value"
                                             [checked]="item.selected === option.value"
                                             (change)="handleSingleSelectFilter(option.value, item.id)">
-                                            <span class="text-sm text-gray-500">{{ option.label }}</span>
+                                            <span class="text-sm text-gray-600">{{ option.label }}</span>
                                         </mat-radio-button>
                                     </div>
                                 </div>
@@ -84,15 +84,14 @@
                     <!-- No Products Found -->
                     <ng-template #noProducts>
                         <div class="flex flex-col items-center justify-center h-[50vh] text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-[#69f0ae] mb-4" fill="none"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-[#1e88e5] mb-4" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <h2 class="text-2xl font-bold text-white mb-2">No Products Found</h2>
-                            <p class="text-gray-400 text-lg">Sorry, this filter does not match our records.</p>
-                            <button (click)="clearFilters()"
-                                class="mt-6 border border-[#69f0ae] bg-[#69f0ae] hover:bg-transparent hover:text-[#69f0ae] text-black font-bold px-6 py-2 rounded-lg transition duration-300">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">No Products Found</h2>
+                            <p class="text-gray-500 text-lg">Sorry, this filter does not match our records.</p>
+                            <button (click)="clearFilters()" class="!mt-6 btn-primary">
                                 Clear Filters
                             </button>
                         </div>
@@ -103,17 +102,17 @@
                         class="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-4">
 
                         <!-- Total Items Info -->
-                        <div class="text-sm text-gray-400">
+                        <div class="text-sm text-gray-600">
                             Showing
-                            <span class="text-[#69F0AE] font-semibold">
+                            <span class="text-[#1e88e5] font-semibold">
                                 {{ (currentPage - 1) * pageSize + 1 }}
                             </span>
                             to
-                            <span class="text-[#69F0AE] font-semibold">
+                            <span class="text-[#1e88e5] font-semibold">
                                 {{ Math.min(currentPage * pageSize, products.length) }}
                             </span>
                             of
-                            <span class="text-[#69F0AE] font-semibold">
+                            <span class="text-[#1e88e5] font-semibold">
                                 {{ products.length }}
                             </span>
                             items
@@ -129,7 +128,7 @@
                                 </li>
                                 <ng-container *ngFor="let page of getPageRange(); let i = index">
                                     <li>
-                                        <button (click)="onPageChange(page)" [class.bg-[#69F0AE]]="currentPage === page"
+                                        <button (click)="onPageChange(page)" [class.bg-[#1e88e5]]="currentPage === page"
                                             [class.text-black]="currentPage === page" class="number-count">
                                             {{ page }}
                                         </button>
